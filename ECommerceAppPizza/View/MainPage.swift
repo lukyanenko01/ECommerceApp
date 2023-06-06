@@ -23,13 +23,14 @@ struct MainPage: View {
         VStack(spacing: 0) {
             
             TabView(selection: $currenTab) {
-                Text("Home")
+                
+                Home()
                     .tag(Tab.Home)
                 
                 Text("Liked")
                     .tag(Tab.Liked)
                 
-                Text("Profile")
+                ProfilePage()
                     .tag(Tab.Profile)
                 
                 Text("Cart")
@@ -65,8 +66,8 @@ struct MainPage: View {
             }
             .padding([.horizontal, .top])
             .padding(.bottom,10)
-            
         }
+        .background(Color("HomeBG").ignoresSafeArea())
     }
 }
 

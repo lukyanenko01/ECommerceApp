@@ -8,8 +8,18 @@
 import SwiftUI
 
 struct MoreProductsView: View {
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+            Text("Дивитися більше")
+                .font(.custom(customFont, size: 24).bold())
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .background(Color("HomeBG").ignoresSafeArea())
     }
 }
 

@@ -7,14 +7,22 @@
 
 import SwiftUI
 
-struct Product: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+struct Product: Identifiable, Hashable {
+    var id = UUID().uuidString
+    var type: ProductType
+    var title: String
+    var subtitle: String
+    var description: String = ""
+    var price: String
+    var productImage: String = ""
+    var quantity: Int = 1
 }
 
-struct Product_Previews: PreviewProvider {
-    static var previews: some View {
-        Product()
-    }
+enum ProductType: String, CaseIterable {
+    
+case Wearable = "Wearable"
+case Laprops = "Laprops"
+case Phones = "Phones"
+case Tablets = "Tablets"
+    
 }

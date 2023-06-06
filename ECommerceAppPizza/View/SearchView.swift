@@ -8,13 +8,160 @@
 import SwiftUI
 
 struct SearchView: View {
+    
+    var animation: Namespace.ID
+    
+    @EnvironmentObject var homeData: HomeViewModel
+    
+    // Activating Text Field with the help of FocusState
+    
+    @FocusState var startTF: Bool
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack(spacing: 0) {
+            
+            // Search Bar..
+            HStack(spacing: 20) {
+                Button {
+                    withAnimation {
+                        homeData.searchActivated = false
+                    }
+                    homeData.searchText = ""
+                } label: {
+                    Image(systemName: "arrow.left")
+                        .font(.title2)
+                        .foregroundColor(Color.black.opacity(0.7))
+                }
+
+                //Search Bar...
+                HStack(spacing: 15) {
+                    Image(systemName: "magnifyingglass")
+                        .font(.title2)
+                        .foregroundColor(.gray)
+                    
+                    // Since we need a separate view for search bar...
+                    TextField("Пошук", text: $homeData.searchText)
+                        .focused($startTF)
+                        .textCase(.lowercase)
+                        .disableAutocorrection(true)
+                    
+                }
+                .padding(.vertical,12)
+                .padding(.horizontal)
+                .background(
+                    Capsule()
+                        .strokeBorder(Color.orange, lineWidth: 1.5)
+                )
+                .matchedGeometryEffect(id: "SEARCHBAR", in: animation)
+                .padding(.trailing,20)
+            }
+            .padding([.horizontal])
+            .padding(.top)
+            .padding(.bottom,10)
+            
+            // Showing Progress if searching...
+            // else showing no results found if empty...
+            if let products = homeData.searchProducts {
+                
+                if products.isEmpty{
+                    
+                    // No Results Found...
+                    VStack(spacing: 10) {
+                        //TODO: - вставить Lottie
+//                        Image("NotFound")
+//                            .resizable()
+                        //  .aspectRatio(contentMode: .Fit)
+//                            .padding(.top,60)
+                        
+                        Text("Нічого не знайденно")
+                            .font(.custom(customFont, size: 22).bold())
+                        
+                        Text("Спробуй ще раз")
+                            .font(.custom(customFont, size: 16))
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal,30)
+                    }
+                    .padding()
+                    
+                } else {
+                    // Filter Results...
+                    ScrollView(.vertical, showsIndicators: false) {
+                            
+                        VStack(spacing: 0) {
+                            
+                            Text("Знайденно \(products.count) результатів")
+                                .font(.custom(customFont, size: 24).bold())
+                                .padding(.vertical)
+                            
+                            StraggeredGrid(columns: 2, spacing: 20, list: products) { product in
+                                // Card View...
+                                ProductCardView(product: product)
+                            }
+                        }
+                        .padding()
+                        
+                    }
+                }
+                
+            } else {
+                ProgressView()
+                    .padding(.top, 30)
+                    .opacity(homeData.searchText == "" ? 0 : 1)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .background(
+            Color("HomeBG")
+                .ignoresSafeArea()
+        )
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                startTF = true
+            }
+        }
+        
+    }
+    
+    @ViewBuilder
+    func ProductCardView(product: Product) -> some View {
+        VStack(spacing: 10) {
+            Image(product.productImage)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            // Moving image
+                .offset(y: -50)
+                .padding(.bottom, -50)
+            
+            Text(product.title)
+                .font(.custom(customFont, size: 18))
+                .fontWeight(.semibold)
+                .padding(.top)
+            
+            Text(product.subtitle)
+                .font(.custom(customFont, size: 14))
+                .foregroundColor(.gray)
+            
+            Text(product.price)
+                .font(.custom(customFont, size: 16))
+                .fontWeight(.bold)
+                .foregroundColor(.orange)
+                .padding(.top,5)
+        }
+        .padding(.horizontal,20)
+        .padding(.bottom,22)
+        .background(
+            Color.white
+                .cornerRadius(25)
+        )
+        .padding(.top,50)
+        
     }
 }
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView()
+        Home()
     }
 }
