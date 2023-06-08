@@ -11,7 +11,9 @@ let customFont = "Raleway-Regular"
 
 struct Home: View {
     
-    @Namespace var animation
+    var animation: Namespace.ID
+    
+    @EnvironmentObject var sharedData:  SharedDataModel
     
     @StateObject var homeData: HomeViewModel = HomeViewModel()
     
@@ -153,13 +155,24 @@ struct Home: View {
     @ViewBuilder
     func ProductCardView(product: Product) -> some View {
         VStack(spacing: 10) {
-            Image(product.productImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: getRect().width / 2.5, height: getRect().width / 2.5)
+            
+            ZStack {
+                if sharedData.showDetailProduct {
+                    Image(product.productImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .opacity(0)
+                } else {
+                    Image(product.productImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .matchedGeometryEffect(id: "\(product.id)IMAGE", in: animation)
+                }
+            }
+            .frame(width: getRect().width / 2.5, height: getRect().width / 2.5)
             // Moving image
-                .offset(y: -80)
-                .padding(.bottom, -80)
+            .offset(y: -80)
+            .padding(.bottom, -80)
             
             Text(product.title)
                 .font(.custom(customFont, size: 18))
@@ -179,12 +192,16 @@ struct Home: View {
         .padding(.horizontal,20)
         .padding(.bottom,22)
         .background(
-        
             Color.white
                 .cornerRadius(25)
-            
-            
         )
+        .onTapGesture {
+            withAnimation(.easeInOut) {
+                sharedData.detailProduct = product
+                sharedData.showDetailProduct = true
+                
+            }
+        }
         
     }
     
@@ -231,7 +248,7 @@ struct Home: View {
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        Home()
+        MainPage()
     }
 }
 
