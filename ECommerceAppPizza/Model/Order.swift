@@ -13,11 +13,11 @@ struct Order {
     var id: String
     var userName: String
     var location: String
-    var positions = [Products]()
+    var positions = [Position]()
     var date: Date
     var status: String
     var number: String
-    var cost: Int
+    var cost: String
     
     var delivery: String
     var pay: String
@@ -33,17 +33,18 @@ struct Order {
         repres["cost"] = cost
         repres["delivery"] = delivery
         repres["pay"] = pay
+        repres["positions"] = positions.map { $0.representation }
         return repres
     }
     
     init(id: String = UUID().uuidString,
          userName: String,
          location: String,
-         positions: [Products] = [Products](),
+         positions: [Position] = [Position](),
          date: Date,
          status: String,
          number: String,
-         cost: Int,
+         cost: String,
          delivery: String,
          pay: String) {
         
@@ -69,10 +70,11 @@ struct Order {
         guard let date = data["date"] as? Timestamp else { return nil }
         guard let status = data["status"] as? String else { return nil }
         guard let number = data["number"] as? String else { return nil }
-        guard let cost = data["cost"] as? Int else { return nil }
+        guard let cost = data["cost"] as? String else { return nil }
         guard let delivery = data["delivery"] as? String else { return nil }
         guard let pay = data["pay"] as? String else { return nil }
-        
+        guard let positionsData = data["positions"] as? [[String: Any]] else { return nil }
+
         self.id = id
         self.userName = userName
         self.location = location
@@ -82,6 +84,8 @@ struct Order {
         self.cost = cost
         self.delivery = delivery
         self.pay = pay
+        self.positions = positionsData.compactMap { Position(data: $0) }
+
     }
     
 }

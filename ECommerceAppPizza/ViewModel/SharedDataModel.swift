@@ -8,6 +8,8 @@
 import SwiftUI
 
 class SharedDataModel: ObservableObject {
+    
+    let dataBaseService = DataBaseService()
 
     // Detail Product Data...
     @Published var detailProduct: Products?
@@ -44,9 +46,6 @@ class SharedDataModel: ObservableObject {
         
         return ("\(total) грн")
     }
-
-    
-    
 
 }
 

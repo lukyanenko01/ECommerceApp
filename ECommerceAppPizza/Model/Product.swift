@@ -8,16 +8,16 @@
 import SwiftUI
 import Firebase
 
-struct Product: Identifiable, Hashable {
-    var id = UUID().uuidString
-    var type: ProductType
-    var title: String
-    var subtitle: String
-    var description: String = ""
-    var price: String
-    var productImage: String = ""
-    var quantity: Int = 1
-}
+//struct Product: Identifiable, Hashable {
+//    var id = UUID().uuidString
+//    var type: ProductType
+//    var title: String
+//    var subtitle: String
+//    var description: String = ""
+//    var price: String
+//    var productImage: String = ""
+//    var quantity: Int = 1
+//}
 
 
 
