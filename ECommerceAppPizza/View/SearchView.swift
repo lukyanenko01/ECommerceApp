@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct SearchView: View {
     
@@ -133,16 +134,18 @@ struct SearchView: View {
     func ProductCardView(product: Products) -> some View {
         VStack(spacing: 10) {
             ZStack {
-                if sharedData.showDetailProduct{
-                    Image(product.productImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .opacity(0)
-                } else {
-                    Image(product.productImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .matchedGeometryEffect(id: "\(product.id)SEARCH", in: animation)
+                if let url = URL(string: product.productImage) {
+                    if sharedData.showDetailProduct{
+                        WebImage(url: url)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .opacity(0)
+                    } else {
+                        WebImage(url: url)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .matchedGeometryEffect(id: "\(product.id)SEARCH", in: animation)
+                    }
                 }
             }
             // Moving image

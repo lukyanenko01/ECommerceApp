@@ -103,7 +103,7 @@ struct CartPage: View {
                     
                     Group {
                         HStack {
-                            Text("Total")
+                            Text("Всього")
                                 .font(.custom(customFont, size: 14))
                                 .fontWeight(.semibold)
                             
@@ -114,10 +114,8 @@ struct CartPage: View {
                                 .foregroundColor(.orange)
                         }
                         
-                        Button {
-                            
-                        } label: {
-                            Text("Checkout")
+                        NavigationLink(destination: CartDetailPage()) {
+                            Text("Замовити")
                                 .font(.custom(customFont, size: 18).bold())
                                 .foregroundColor(.white)
                                 .padding(.vertical,18)
@@ -126,6 +124,21 @@ struct CartPage: View {
                                 .cornerRadius(15)
                                 .shadow(color: .black.opacity(0.05), radius: 5, x: 5, y: 5)
                         }
+                        .padding(.vertical)
+
+//                        Button {
+//
+//
+//                        } label: {
+//                            Text("Замовити")
+//                                .font(.custom(customFont, size: 18).bold())
+//                                .foregroundColor(.white)
+//                                .padding(.vertical,18)
+//                                .frame(maxWidth: .infinity)
+//                                .background(Color.orange)
+//                                .cornerRadius(15)
+//                                .shadow(color: .black.opacity(0.05), radius: 5, x: 5, y: 5)
+//                        }
                         .padding(.vertical)
                         
                     }
@@ -177,7 +190,7 @@ struct CardView: View {
                     .font(.custom(customFont, size: 18).bold())
                     .lineLimit(1)
                 
-                Text(product.description)
+                Text(product.size)
                     .font(.custom(customFont, size: 17))
                     .fontWeight(.semibold)
                     .foregroundColor(.orange)

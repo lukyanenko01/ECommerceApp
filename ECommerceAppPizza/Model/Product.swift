@@ -39,7 +39,7 @@ struct Products: Identifiable, Hashable {
     var priceM: Int
     var priceXl: Int
     var productImage: String = ""
-    //var size: String
+    var size: String
     var quantity: Int = 1
 
     var representation: [String: Any] {
@@ -52,7 +52,7 @@ struct Products: Identifiable, Hashable {
         repres["priceXl"] = self.priceXl
         repres["description"] = self.description
         repres["productImage"] = self.productImage
-        //repres["size"] = self.size
+        repres["size"] = self.size
         repres["quantity"] = self.quantity
         return repres
     }
@@ -65,6 +65,7 @@ struct Products: Identifiable, Hashable {
                   priceM: Int,
                   priceXl: Int,
                   description: String,
+                  size: String,
                   quantity: Int) {
         self.id = id
         self.title = title
@@ -74,6 +75,7 @@ struct Products: Identifiable, Hashable {
         self.priceM = priceM
         self.priceXl = priceXl
         self.description = description
+        self.size = size
         self.quantity = quantity
 
     }
@@ -89,6 +91,7 @@ struct Products: Identifiable, Hashable {
         guard let priceXl = data["priceXl"] as? Int else { return nil }
         guard let description = data["description"] as? String else { return nil }
         guard let productImage = data["productImage"] as? String else { return nil }
+        guard let size = data["size"] as? String else { return nil }
         guard let quantity = data["quantity"] as? Int else { return nil }
 
         
@@ -100,6 +103,7 @@ struct Products: Identifiable, Hashable {
         self.priceXl = priceXl
         self.description = description
         self.productImage = productImage
+        self.size = size
         self.quantity = quantity
     }
 }

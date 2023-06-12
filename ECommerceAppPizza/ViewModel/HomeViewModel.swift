@@ -143,6 +143,7 @@ import Combine
                               priceM: $0.priceM,
                               priceXl: $0.priceXl,
                               description: $0.description,
+                              size: $0.size,
                               quantity: $0.quantity)
                      
                  }

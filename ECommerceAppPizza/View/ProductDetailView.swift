@@ -114,11 +114,12 @@ struct ProductDetailView: View {
                     Button {
                         addToCart()
                     } label: {
-                        Text("\(isAddedToCart() ? "added" : "add") to basket")
+                        Text("\(isAddedToCart() ? "Прибрати з корзини" : "Добавити в корзину")")
                             .font(.custom(customFont, size: 20).bold())
                             .foregroundColor(.white)
                             .padding(.vertical,20)
                             .frame(maxWidth: .infinity)
+                        
                             .background(
                                 Color.orange
                                     .cornerRadius(15)
@@ -173,15 +174,18 @@ struct ProductDetailView: View {
     }
     
     func addToCart() {
-        if let index = shareData.cartProducts.firstIndex(where: { product in
-            return self.product.id == product.id
+        if let index = shareData.cartProducts.firstIndex(where: { cartProduct in
+            return self.product.id == cartProduct.id
         }) {
-            // Remove from liked...
+            // Remove from cart...
             shareData.cartProducts.remove(at: index)
         } else {
-            shareData.cartProducts.append(product)
+            var productToAdd = product
+            productToAdd.size = ["S", "M", "Xl"][size]
+            shareData.cartProducts.append(productToAdd)
         }
     }
+
 }
 
 struct ProductDetailView_Previews: PreviewProvider {
