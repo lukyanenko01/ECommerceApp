@@ -130,7 +130,7 @@ struct SearchView: View {
     }
     
     @ViewBuilder
-    func ProductCardView(product: Product) -> some View {
+    func ProductCardView(product: Products) -> some View {
         VStack(spacing: 10) {
             ZStack {
                 if sharedData.showDetailProduct{
@@ -154,11 +154,11 @@ struct SearchView: View {
                 .fontWeight(.semibold)
                 .padding(.top)
             
-            Text(product.subtitle)
+            Text(product.description)
                 .font(.custom(customFont, size: 14))
                 .foregroundColor(.gray)
             
-            Text(product.price)
+            Text("\(product.priceS)")
                 .font(.custom(customFont, size: 16))
                 .fontWeight(.bold)
                 .foregroundColor(.orange)

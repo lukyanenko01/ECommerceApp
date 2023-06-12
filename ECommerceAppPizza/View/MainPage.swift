@@ -87,6 +87,28 @@ struct MainPage: View {
             }
             
         )
+        .onAppear {
+            let dataService = DataBaseService()
+            dataService.getProducts { result in
+                switch result {
+                case .success(let products):
+                    for product in products {
+                        print("Product title: \(product.title)")
+                        print("Product type: \(product.type)")
+                        print("Product price S: \(product.priceS)")
+                        print("Product price M: \(product.priceM)")
+                        print("Product price XL: \(product.priceXl)")
+                        print("Product description: \(product.description)")
+                        print("Product image: \(product.productImage)")
+                        print("Product quantity: \(product.quantity)")
+                        print("-----------------------")
+                    }
+                case .failure(let error):
+                    print("Failed to get products: \(error)")
+                }
+            }
+
+        }
     }
 }
 

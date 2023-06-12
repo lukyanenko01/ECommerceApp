@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct CartPage: View {
     @EnvironmentObject var sharedData: SharedDataModel
@@ -144,7 +145,7 @@ struct CartPage: View {
         
     }
     
-    func deleteProduct(product: Product) {
+    func deleteProduct(product: Products) {
         if let index = sharedData.cartProducts.firstIndex(where: { currentProduct in
             return product.id ==  currentProduct.id
         }) {
@@ -157,39 +158,33 @@ struct CartPage: View {
     
 }
 
-
-struct CartPage_Previews: PreviewProvider {
-    static var previews: some View {
-        CartPage()
-    }
-}
-
-
 struct CardView: View {
     
     // Making Product as Binding so as update in Real time...
-    @Binding var product: Product
+    @Binding var product: Products
     
     var body: some View {
         HStack(spacing: 15) {
-            Image(product.productImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
+            if let url = URL(string: product.productImage) {
+                WebImage(url: url)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 100, height: 100)
+            }
             
             VStack(alignment: .leading, spacing: 8) {
                 Text(product.title)
                     .font(.custom(customFont, size: 18).bold())
                     .lineLimit(1)
                 
-                Text(product.subtitle)
+                Text(product.description)
                     .font(.custom(customFont, size: 17))
                     .fontWeight(.semibold)
                     .foregroundColor(.orange)
                 
                 // Quantity Buttons...
                 HStack(spacing: 10) {
-                    Text("Quantity")
+                    Text("Кількість")
                         .font(.custom(customFont, size: 14))
                         .foregroundColor(.gray)
                     
@@ -236,3 +231,10 @@ struct CardView: View {
     }
     
 }
+
+
+//struct CartPage_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CartPage()
+//    }
+//}

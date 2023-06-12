@@ -6,9 +6,26 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ProductDetailView: View {
-    var product: Product
+    var product: Products
+    
+    @State var size = 0
+    
+    var selectedPrice: Int {
+        switch size {
+        case 0:
+            return product.priceS
+        case 1:
+            return product.priceM
+        case 2:
+            return product.priceXl
+        default:
+            return product.priceS
+        }
+    }
+
     
     // For Matched Geometry Effect...
     var animation: Namespace.ID
@@ -56,14 +73,15 @@ struct ProductDetailView: View {
                 }
                 .padding()
                 
-                
-                Image(product.productImage)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .matchedGeometryEffect(id: "\(product.id)\(shareData.fromSearchPage ? "SEARCH" : "IMAGE")", in: animation)
-                    .padding(.horizontal)
-                    .offset(y: -12)
-                    .frame(maxHeight: .infinity)
+                if let url = URL(string: product.productImage) {
+                    WebImage(url: url)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .matchedGeometryEffect(id: "\(product.id)\(shareData.fromSearchPage ? "SEARCH" : "IMAGE")", in: animation)
+                        .padding(.horizontal)
+                        .offset(y: -12)
+                        .frame(maxHeight: .infinity)
+                }
             }
             .frame(height: getRect().height / 2.7)
             .zIndex(1)
@@ -74,35 +92,20 @@ struct ProductDetailView: View {
                     Text(product.title)
                         .font(.custom(customFont, size: 20).bold())
                     
-                    Text(product.subtitle)
+                    Text(product.description)
                         .font(.custom(customFont, size: 18))
                         .foregroundColor(.gray)
                         .padding(.top)
                     
-                    Text("Соус з томатів пелаті, моцарела, дорблю, маскарпоне, грана падана, оливкова олія, орегано")
-                        .font(.custom(customFont, size: 15))
-                        .foregroundColor(.gray)
-                    
-                    Button {
-                        addToCart()
-                    } label: {
-                        
-                        Label {
-                            Image(systemName: "arrow.right")
-                        } icon: {
-                            Text("Fuul description")
-                        }
-                        .font(.custom(customFont, size: 15).bold())
-                        .foregroundColor(.orange)
-                        
-                    }
+                    CustomSegmentedControl(selectedSegment: $size, segments: ["S", "M", "Xl"])
+
                     
                     HStack {
-                        Text("Total")
+                        Text("Ціна")
                             .font(.custom(customFont, size: 17))
                         
                         Spacer()
-                        Text("\(product.price)")
+                        Text("\(selectedPrice) грн")
                             .font(.custom(customFont, size: 20).bold())
                             .foregroundColor(.orange)
                     }

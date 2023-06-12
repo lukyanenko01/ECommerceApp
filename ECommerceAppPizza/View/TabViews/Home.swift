@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 let customFont = "Raleway-Regular"
 
@@ -153,22 +154,27 @@ struct Home: View {
     }
     
     @ViewBuilder
-    func ProductCardView(product: Product) -> some View {
+    func ProductCardView(product: Products) -> some View {
         VStack(spacing: 10) {
             
             ZStack {
-                if sharedData.showDetailProduct {
-                    Image(product.productImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .opacity(0)
-                } else {
-                    Image(product.productImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .matchedGeometryEffect(id: "\(product.id)IMAGE", in: animation)
+                if let url = URL(string: product.productImage) {
+                    if sharedData.showDetailProduct {
+                        WebImage(url: url)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                           // This adds an activity indicator
+
+                    } else {
+                        WebImage(url: url)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .matchedGeometryEffect(id: "\(product.id)IMAGE", in: animation)
+                            //.indicator(.activity) // This adds an activity indicator
+                    }
                 }
             }
+            
             .frame(width: getRect().width / 2.5, height: getRect().width / 2.5)
             // Moving image
             .offset(y: -80)
@@ -179,11 +185,11 @@ struct Home: View {
                 .fontWeight(.semibold)
                 .padding(.top)
             
-            Text(product.subtitle)
-                .font(.custom(customFont, size: 14))
-                .foregroundColor(.gray)
+//            Text(product.description)
+//                .font(.custom(customFont, size: 14))
+//                .foregroundColor(.gray)
             
-            Text(product.price)
+            Text("\(product.priceS) грн")
                 .font(.custom(customFont, size: 16))
                 .fontWeight(.bold)
                 .foregroundColor(.orange)
@@ -255,5 +261,41 @@ struct Home_Previews: PreviewProvider {
 extension View {
     func getRect() -> CGRect {
         return UIScreen.main.bounds
+    }
+}
+
+
+class ImageLoader: ObservableObject {
+    @Published var imageData = Data()
+    
+    func load(url: URL) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                DispatchQueue.main.async {
+                    self.imageData = data
+                }
+            }
+        }.resume()
+    }
+}
+
+struct AsyncImage: View {
+    @ObservedObject private var loader = ImageLoader()
+    
+    var url: URL
+
+    init(url: URL) {
+        self.url = url
+        loader.load(url: url)
+    }
+    
+    var body: some View {
+        if let uiImage = UIImage(data: loader.imageData) {
+            Image(uiImage: uiImage)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        } else {
+            ProgressView() // Or another placeholder
+        }
     }
 }
