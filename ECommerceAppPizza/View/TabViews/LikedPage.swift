@@ -42,15 +42,21 @@ struct LikedPage: View {
                         .opacity(sharedData.likedProducts.isEmpty ? 0 : 1)
 
                     }
+                    
                     // Cheking if liked products are empty
                     if sharedData.likedProducts.isEmpty {
+                       // LottieView(name: "pizza", loopMode: .loop)
+
                         Group {
                             Image("noLike")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .padding()
                                 .padding(.top,35)
-                            
+
+//                            LottieView(name: "pizza", loopMode: .loop)
+
+
                             Text("No favorites yet")
                                 .font(.custom(customFont, size: 25))
                                 .fontWeight(.semibold)

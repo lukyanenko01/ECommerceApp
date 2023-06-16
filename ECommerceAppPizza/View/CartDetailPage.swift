@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import iPhoneNumberField
 
 struct CartDetailPage: View {
     
@@ -41,7 +42,7 @@ struct CartDetailPage: View {
                     Divider()
                     
                     VStack {
-                        Text("Спосіб отримання")
+                        Text("Спосіб оплати")
                             .font(.custom(customFont, size: 20).bold())
                         RadioButtonGroup(selectedOption: $selectedPaymentOption)
                         
@@ -54,7 +55,9 @@ struct CartDetailPage: View {
                             .font(.custom(customFont, size: 20).bold())
                         
                         CustomTextField(text: $name, hint: "Ім'я", leadingIcon: Image(systemName: "person"))
-                        CustomTextField(text: $phone, hint: "Телефон", leadingIcon: Image(systemName: "phone"))
+                        CustomTextField(text: $phone, hint: "Телефон", leadingIcon: Image(systemName: "phone"), isPassword: true)
+                           
+                        
                         
                         if delivery == 1 {
                             CustomTextField(text: $location, hint: "Адреса доставки", leadingIcon: Image(systemName: "location"))
@@ -106,7 +109,7 @@ struct CartDetailPage: View {
                                        status: "New",
                                        number: phone,
                                        cost: sharedDataModel.getTotalPrice(),
-                                       delivery: delivery == 0 ? "Pickup" : "Delivery",
+                                       delivery: delivery == 0 ? "З собою" : "Доставка",
                                        pay: selectedPaymentOption?.rawValue ?? "")
 
                      sharedDataModel.dataBaseService.saveOrder(order: order) { result in
@@ -197,9 +200,9 @@ struct CustomTextField: View {
                 .frame(width: 40, alignment: .leading)
             
             if isPassword {
-                SecureField(hint, text: $text)
-                    .keyboardType(keyboardType)
-                    .autocapitalization(autocapitalization)
+                iPhoneNumberField(hint, text: $text)
+                    .flagHidden(true)
+                    .prefixHidden(false)
             } else {
                 TextField(hint, text: $text)
                     .keyboardType(keyboardType)

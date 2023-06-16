@@ -161,7 +161,7 @@ struct SearchView: View {
                 .font(.custom(customFont, size: 14))
                 .foregroundColor(.gray)
             
-            Text("\(product.priceS)")
+            Text("\(product.priceS) грн")
                 .font(.custom(customFont, size: 16))
                 .fontWeight(.bold)
                 .foregroundColor(.orange)

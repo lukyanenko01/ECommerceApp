@@ -10,110 +10,6 @@ import SwiftUI
 // to avoid memory issue...
 import Combine
 
-
-//
-//class HomeViewModel: ObservableObject {
-//
-//    @Published var productType: ProductType = .Wearable
-//
-//    @Published var product: [Product] = [
-//        Product(type: .Wearable, title: "Apple Watch", subtitle: "Serias 6: Red", price: "$359", productImage: "Wearable"),
-//        Product(type: .Wearable, title: "Apple Watch", subtitle: "Serias 6: Red", price: "$359", productImage: "Wearable"),
-//        Product(type: .Wearable, title: "Apple Watch", subtitle: "Serias 6: Red", price: "$359", productImage: "Wearable"),
-//        Product(type: .Wearable, title: "Apple Watch", subtitle: "Serias 6: Red", price: "$359", productImage: "Wearable"),
-//        Product(type: .Phones, title: "Apple Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Phones"),
-//        Product(type: .Phones, title: "Apple Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Phones"),
-//        Product(type: .Phones, title: "Apple Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Phones"),
-//        Product(type: .Phones, title: "Apple Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Phones"),
-//        Product(type: .Phones, title: "Apple Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Phones"),
-//        Product(type: .Phones, title: "Apple Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Phones"),
-//        Product(type: .Tablets, title: "Tablets Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Tablets"),
-//        Product(type: .Tablets, title: "Tablets Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Tablets"),
-//        Product(type: .Tablets, title: "Tablets Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Tablets"),
-//        Product(type: .Tablets, title: "Tablets Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Tablets"),
-//        Product(type: .Tablets, title: "Tablets Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Tablets"),
-//        Product(type: .Laprops, title: "Laprops Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Laprops"),
-//        Product(type: .Laprops, title: "Laprops Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Laprops"),
-//        Product(type: .Laprops, title: "Laprops Phones", subtitle: "Serias 6: Red", price: "$359", productImage: "Laprops")
-//    ]
-//
-//    //Filtred Products...
-//    @Published var filteredProducts: [Product] = []
-//
-//    // More products on the type..
-//    @Published var showMoreProductsOnType: Bool = false
-//
-//    // Search Data...
-//    @Published var searchText: String = ""
-//    @Published var searchActivated: Bool = false
-//    @Published var searchProducts: [Product]?
-//
-//    var searchCancellable: AnyCancellable?
-//
-//
-//    init() {
-//        filterProductByType()
-//
-//        searchCancellable = $searchText.removeDuplicates()
-//            .debounce(for: 0.5, scheduler: RunLoop.main)
-//            .sink(receiveValue: { str in
-//                if str != "" {
-//                    self.filterProductBySearch()
-//                } else {
-//                    self.searchProducts = nil
-//                }
-//            })
-//    }
-//
-//    func filterProductByType() {
-//
-//        DispatchQueue.global(qos: .userInteractive).async {
-//
-//            let results = self.product
-//            // since it will require more memory so were using lazy to perform more
-//
-//                .lazy
-//                .filter { product in
-//                    return product.type == self.productType
-//                }
-//                .prefix(4)
-//
-//            DispatchQueue.main.async {
-//                self.filteredProducts = results.compactMap({ product in
-//                    return product
-//                })
-//            }
-//
-//        }
-//
-//    }
-//
-//    func filterProductBySearch() {
-//
-//        DispatchQueue.global(qos: .userInteractive).async {
-//
-//            let results = self.product
-//            // since it will require more memory so were using lazy to perform more
-//
-//                .lazy
-//                .filter { product in
-//                    return product.title.lowercased().contains(self.searchText.lowercased())
-//                }
-//
-//            DispatchQueue.main.async {
-//                self.searchProducts = results.compactMap({ product in
-//                    return product
-//                })
-//            }
-//
-//        }
-//
-//    }
-//
-//}
-
-///FB
-
  import SwiftUI
  import Combine
 
@@ -126,12 +22,17 @@ import Combine
      @Published var searchText: String = ""
      @Published var searchActivated: Bool = false
      @Published var searchProducts: [Products]?
+     @Published var moreProductsOnType: [Products] = []
+
+     @Published var isLoading = false
      
      private var dataService = DataBaseService()
      private var searchCancellable: AnyCancellable?
 
      init() {
+         isLoading = true
          dataService.getProducts { result in
+             self.isLoading = false  // Загрузка завершена
              switch result {
              case .success(let products):
                  self.product = products.map {
@@ -164,6 +65,8 @@ import Combine
                  }
              })
      }
+     
+     
      
      func filterProductByType() {
          DispatchQueue.global(qos: .userInteractive).async {

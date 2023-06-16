@@ -18,6 +18,9 @@ struct Home: View {
     
     @StateObject var homeData: HomeViewModel = HomeViewModel()
     
+    @State private var isMoreProductsViewPresented = false
+    
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             
@@ -28,7 +31,7 @@ struct Home: View {
                 ZStack {
                     if homeData.searchActivated {
                         SearchBar()
-
+                        
                     } else {
                         SearchBar()
                             .matchedGeometryEffect(id: "SEARCHBAR", in: animation)
@@ -86,6 +89,7 @@ struct Home: View {
                 
                 Button {
                     homeData.showMoreProductsOnType.toggle()
+                    homeData.filterProductByType()
                 } label: {
                     
                     // Since we need image ar right...
@@ -100,7 +104,7 @@ struct Home: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.trailing)
                 .padding(.top,10)
-
+                
                 
             }
             .padding(.vertical)
@@ -112,9 +116,22 @@ struct Home: View {
             homeData.filterProductByType()
         }
         
-        .sheet(isPresented: $homeData.showMoreProductsOnType) {
-            MoreProductsView()
-        }
+//        .fullScreenCover(isPresented: $homeData.showMoreProductsOnType) {
+//            MoreProductsView(animation: animation)
+//                .environmentObject(homeData)
+//
+//        }
+        
+        // More Products View
+        .overlay(
+            ZStack {
+                if homeData.showMoreProductsOnType {
+                    MoreProductsView(animation: animation)
+                        .environmentObject(homeData)
+                }
+            }
+        )
+
         // Displaying Search View...
         .overlay(
             
@@ -126,8 +143,8 @@ struct Home: View {
                 }
             }
             
-            )
-            
+        )
+        
         
     }
     
@@ -163,14 +180,14 @@ struct Home: View {
                         WebImage(url: url)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                           // This adds an activity indicator
-
+                        // This adds an activity indicator
+                        
                     } else {
                         WebImage(url: url)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .matchedGeometryEffect(id: "\(product.id)IMAGE", in: animation)
-                            //.indicator(.activity) // This adds an activity indicator
+                        //.indicator(.activity) // This adds an activity indicator
                     }
                 }
             }
@@ -185,9 +202,10 @@ struct Home: View {
                 .fontWeight(.semibold)
                 .padding(.top)
             
-//            Text(product.description)
-//                .font(.custom(customFont, size: 14))
-//                .foregroundColor(.gray)
+            Text(product.description)
+                .font(.custom(customFont, size: 14))
+                .foregroundColor(.gray)
+                .frame(width: 180, height: 80)
             
             Text("\(product.priceS) грн")
                 .font(.custom(customFont, size: 16))
@@ -246,7 +264,7 @@ struct Home: View {
                     ,alignment: .bottom
                 )
         }
-
+        
         
     }
     
@@ -283,7 +301,7 @@ struct AsyncImage: View {
     @ObservedObject private var loader = ImageLoader()
     
     var url: URL
-
+    
     init(url: URL) {
         self.url = url
         loader.load(url: url)

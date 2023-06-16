@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E847F3EF79EED9B1D1C7B60A /* Pods_ECommerceAppPizza.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39F2CE82BC3B10112DD2675A /* Pods_ECommerceAppPizza.framework */; };
 		F2108A472A31DCA700011A1C /* LikedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2108A462A31DCA700011A1C /* LikedPage.swift */; };
 		F2108A492A32194300011A1C /* CartPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2108A482A32194300011A1C /* CartPage.swift */; };
 		F2108A4C2A322AC000011A1C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = F2108A4B2A322AC000011A1C /* FirebaseAnalytics */; };
@@ -17,9 +18,12 @@
 		F2108A562A322AC000011A1C /* FirebaseInAppMessagingSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = F2108A552A322AC000011A1C /* FirebaseInAppMessagingSwift-Beta */; };
 		F2108A582A322AC000011A1C /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = F2108A572A322AC000011A1C /* FirebaseMessaging */; };
 		F2108A5A2A322AC000011A1C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = F2108A592A322AC000011A1C /* FirebaseStorage */; };
-		F2108A5D2A322B2000011A1C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F2108A5C2A322B2000011A1C /* Lottie */; };
 		F2108A5F2A32309400011A1C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2108A5E2A32309400011A1C /* GoogleService-Info.plist */; };
 		F2108A622A323A5B00011A1C /* DataBaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2108A612A323A5B00011A1C /* DataBaseService.swift */; };
+		F21810812A3CBACE00A5BA51 /* pizza.json in Resources */ = {isa = PBXBuildFile; fileRef = F21810802A3CBACE00A5BA51 /* pizza.json */; };
+		F21810832A3CBB1B00A5BA51 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21810822A3CBB1B00A5BA51 /* LottieView.swift */; };
+		F21810872A3CBBD000A5BA51 /* calculator.json in Resources */ = {isa = PBXBuildFile; fileRef = F21810862A3CBBD000A5BA51 /* calculator.json */; };
+		F218108A2A3CD42500A5BA51 /* iPhoneNumberField in Frameworks */ = {isa = PBXBuildFile; productRef = F21810892A3CD42500A5BA51 /* iPhoneNumberField */; };
 		F2415CB72A376A970006A496 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2415CB62A376A970006A496 /* Order.swift */; };
 		F2415CBA2A37799D0006A496 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2415CB92A37799D0006A496 /* Position.swift */; };
 		F27496652A37443900C87793 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F27496642A37443900C87793 /* SDWebImageSwiftUI */; };
@@ -45,10 +49,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01044FBAB635B860971D122B /* Pods-ECommerceAppPizza.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECommerceAppPizza.release.xcconfig"; path = "Target Support Files/Pods-ECommerceAppPizza/Pods-ECommerceAppPizza.release.xcconfig"; sourceTree = "<group>"; };
+		39F2CE82BC3B10112DD2675A /* Pods_ECommerceAppPizza.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ECommerceAppPizza.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F121480E843612724C0EDD16 /* Pods-ECommerceAppPizza.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECommerceAppPizza.debug.xcconfig"; path = "Target Support Files/Pods-ECommerceAppPizza/Pods-ECommerceAppPizza.debug.xcconfig"; sourceTree = "<group>"; };
 		F2108A462A31DCA700011A1C /* LikedPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedPage.swift; sourceTree = "<group>"; };
 		F2108A482A32194300011A1C /* CartPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPage.swift; sourceTree = "<group>"; };
 		F2108A5E2A32309400011A1C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F2108A612A323A5B00011A1C /* DataBaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseService.swift; sourceTree = "<group>"; };
+		F21810802A3CBACE00A5BA51 /* pizza.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pizza.json; sourceTree = "<group>"; };
+		F21810822A3CBB1B00A5BA51 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		F21810862A3CBBD000A5BA51 /* calculator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = calculator.json; sourceTree = "<group>"; };
 		F2415CB62A376A970006A496 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		F2415CB92A37799D0006A496 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		F27496672A37513800C87793 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
@@ -81,20 +91,38 @@
 			files = (
 				F27496652A37443900C87793 /* SDWebImageSwiftUI in Frameworks */,
 				F2108A4C2A322AC000011A1C /* FirebaseAnalytics in Frameworks */,
+				F218108A2A3CD42500A5BA51 /* iPhoneNumberField in Frameworks */,
 				F2108A4E2A322AC000011A1C /* FirebaseAuth in Frameworks */,
-				F2108A5D2A322B2000011A1C /* Lottie in Frameworks */,
 				F2108A582A322AC000011A1C /* FirebaseMessaging in Frameworks */,
 				F2108A502A322AC000011A1C /* FirebaseFirestore in Frameworks */,
 				F2108A522A322AC000011A1C /* FirebaseFirestoreSwift in Frameworks */,
 				F2108A5A2A322AC000011A1C /* FirebaseStorage in Frameworks */,
 				F2108A562A322AC000011A1C /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
 				F2108A542A322AC000011A1C /* FirebaseInAppMessaging-Beta in Frameworks */,
+				E847F3EF79EED9B1D1C7B60A /* Pods_ECommerceAppPizza.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE07C5E3A7F2B4C983259C16 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F121480E843612724C0EDD16 /* Pods-ECommerceAppPizza.debug.xcconfig */,
+				01044FBAB635B860971D122B /* Pods-ECommerceAppPizza.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D8C7AAEF2723E647F2B10C2D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				39F2CE82BC3B10112DD2675A /* Pods_ECommerceAppPizza.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F2108A602A323A4700011A1C /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				F27496672A37513800C87793 /* CustomSegmentedControl.swift */,
+				F21810822A3CBB1B00A5BA51 /* LottieView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -116,6 +145,8 @@
 			children = (
 				F29C72C92A2E52A300685D27 /* ECommerceAppPizza */,
 				F29C72C82A2E52A300685D27 /* Products */,
+				AE07C5E3A7F2B4C983259C16 /* Pods */,
+				D8C7AAEF2723E647F2B10C2D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -138,6 +169,8 @@
 				F2D2C3B92A2F902C00870BDB /* ViewModel */,
 				F2D2C3AA2A2F853D00870BDB /* View */,
 				F29C72CE2A2E52A500685D27 /* Assets.xcassets */,
+				F21810862A3CBBD000A5BA51 /* calculator.json */,
+				F21810802A3CBACE00A5BA51 /* pizza.json */,
 				F2D2C3AE2A2F88B200870BDB /* Fonts */,
 				F29C72D02A2E52A500685D27 /* Preview Content */,
 			);
@@ -215,9 +248,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F29C72D52A2E52A500685D27 /* Build configuration list for PBXNativeTarget "ECommerceAppPizza" */;
 			buildPhases = (
+				FEAF11C815E0CCDC7E617896 /* [CP] Check Pods Manifest.lock */,
 				F29C72C32A2E52A300685D27 /* Sources */,
 				F29C72C42A2E52A300685D27 /* Frameworks */,
 				F29C72C52A2E52A300685D27 /* Resources */,
+				DC19C359AD54500CB99B1ED7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -233,8 +268,8 @@
 				F2108A552A322AC000011A1C /* FirebaseInAppMessagingSwift-Beta */,
 				F2108A572A322AC000011A1C /* FirebaseMessaging */,
 				F2108A592A322AC000011A1C /* FirebaseStorage */,
-				F2108A5C2A322B2000011A1C /* Lottie */,
 				F27496642A37443900C87793 /* SDWebImageSwiftUI */,
+				F21810892A3CD42500A5BA51 /* iPhoneNumberField */,
 			);
 			productName = ECommerceAppPizza;
 			productReference = F29C72C72A2E52A300685D27 /* ECommerceAppPizza.app */;
@@ -266,8 +301,8 @@
 			mainGroup = F29C72BE2A2E52A300685D27;
 			packageReferences = (
 				F2108A4A2A322AC000011A1C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				F2108A5B2A322B1F00011A1C /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				F27496632A37443900C87793 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				F21810882A3CD42500A5BA51 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
 			);
 			productRefGroup = F29C72C82A2E52A300685D27 /* Products */;
 			projectDirPath = "";
@@ -284,15 +319,59 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2D2C3B22A2F88D100870BDB /* Raleway-SemiBold.ttf in Resources */,
+				F21810872A3CBBD000A5BA51 /* calculator.json in Resources */,
 				F2D2C3B42A2F88D100870BDB /* Raleway-Regular.ttf in Resources */,
 				F29C72D22A2E52A500685D27 /* Preview Assets.xcassets in Resources */,
 				F29C72CF2A2E52A500685D27 /* Assets.xcassets in Resources */,
 				F2D2C3B32A2F88D100870BDB /* Raleway-Bold.ttf in Resources */,
+				F21810812A3CBACE00A5BA51 /* pizza.json in Resources */,
 				F2108A5F2A32309400011A1C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DC19C359AD54500CB99B1ED7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ECommerceAppPizza/Pods-ECommerceAppPizza-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ECommerceAppPizza/Pods-ECommerceAppPizza-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ECommerceAppPizza/Pods-ECommerceAppPizza-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FEAF11C815E0CCDC7E617896 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ECommerceAppPizza-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F29C72C32A2E52A300685D27 /* Sources */ = {
@@ -306,6 +385,7 @@
 				F2D2C3B82A2F8DE300870BDB /* Product.swift in Sources */,
 				F2D2C3AD2A2F855A00870BDB /* Home.swift in Sources */,
 				F2D2C3BF2A2FAC3C00870BDB /* SearchView.swift in Sources */,
+				F21810832A3CBB1B00A5BA51 /* LottieView.swift in Sources */,
 				F2D2C3BB2A2F903C00870BDB /* HomeViewModel.swift in Sources */,
 				F2108A622A323A5B00011A1C /* DataBaseService.swift in Sources */,
 				F274966A2A375CEF00C87793 /* CartDetailPage.swift in Sources */,
@@ -440,6 +520,7 @@
 		};
 		F29C72D62A2E52A500685D27 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F121480E843612724C0EDD16 /* Pods-ECommerceAppPizza.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -471,6 +552,7 @@
 		};
 		F29C72D72A2E52A500685D27 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01044FBAB635B860971D122B /* Pods-ECommerceAppPizza.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -532,12 +614,12 @@
 				minimumVersion = 10.0.0;
 			};
 		};
-		F2108A5B2A322B1F00011A1C /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+		F21810882A3CD42500A5BA51 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			repositoryURL = "https://github.com/MojtabaHs/iPhoneNumberField.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				minimumVersion = 0.10.1;
 			};
 		};
 		F27496632A37443900C87793 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
@@ -591,10 +673,10 @@
 			package = F2108A4A2A322AC000011A1C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
-		F2108A5C2A322B2000011A1C /* Lottie */ = {
+		F21810892A3CD42500A5BA51 /* iPhoneNumberField */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F2108A5B2A322B1F00011A1C /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
+			package = F21810882A3CD42500A5BA51 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */;
+			productName = iPhoneNumberField;
 		};
 		F27496642A37443900C87793 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
