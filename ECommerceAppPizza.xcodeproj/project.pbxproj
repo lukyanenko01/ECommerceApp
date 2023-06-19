@@ -36,6 +36,7 @@
 		F2A729FF2A3024A1001F59A8 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A729FE2A3024A1001F59A8 /* ProductDetailView.swift */; };
 		F2A72A012A3024E5001F59A8 /* SharedDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A72A002A3024E5001F59A8 /* SharedDataModel.swift */; };
 		F2A72A032A302EF9001F59A8 /* CustomCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A72A022A302EF9001F59A8 /* CustomCorners.swift */; };
+		F2C98D4A2A40B3CD00FF2215 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C98D492A40B3CD00FF2215 /* MapView.swift */; };
 		F2D2C3AD2A2F855A00870BDB /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2C3AC2A2F855A00870BDB /* Home.swift */; };
 		F2D2C3B22A2F88D100870BDB /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D2C3AF2A2F88D000870BDB /* Raleway-SemiBold.ttf */; };
 		F2D2C3B32A2F88D100870BDB /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D2C3B02A2F88D000870BDB /* Raleway-Bold.ttf */; };
@@ -71,6 +72,7 @@
 		F2A729FE2A3024A1001F59A8 /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
 		F2A72A002A3024E5001F59A8 /* SharedDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataModel.swift; sourceTree = "<group>"; };
 		F2A72A022A302EF9001F59A8 /* CustomCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorners.swift; sourceTree = "<group>"; };
+		F2C98D492A40B3CD00FF2215 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		F2D2C3AC2A2F855A00870BDB /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		F2D2C3AF2A2F88D000870BDB /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBold.ttf"; sourceTree = "<group>"; };
 		F2D2C3B02A2F88D000870BDB /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				F2A729FE2A3024A1001F59A8 /* ProductDetailView.swift */,
 				F2A72A022A302EF9001F59A8 /* CustomCorners.swift */,
 				F27496662A37511C00C87793 /* CustomView */,
+				F2C98D492A40B3CD00FF2215 /* MapView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				F2D2C3B82A2F8DE300870BDB /* Product.swift in Sources */,
 				F2D2C3AD2A2F855A00870BDB /* Home.swift in Sources */,
 				F2D2C3BF2A2FAC3C00870BDB /* SearchView.swift in Sources */,
+				F2C98D4A2A40B3CD00FF2215 /* MapView.swift in Sources */,
 				F21810832A3CBB1B00A5BA51 /* LottieView.swift in Sources */,
 				F2D2C3BB2A2F903C00870BDB /* HomeViewModel.swift in Sources */,
 				F2108A622A323A5B00011A1C /* DataBaseService.swift in Sources */,
@@ -534,8 +538,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -544,9 +548,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ECommerceAppPizza;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -566,8 +573,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -576,9 +583,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ECommerceAppPizza;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -52,11 +52,11 @@ struct CartPage: View {
                                     .padding()
                                     .padding(.top,35)
                                 
-                                Text("No items added")
+                                Text("Не додано жодного товару")
                                     .font(.custom(customFont, size: 25))
                                     .fontWeight(.semibold)
                                 
-                                Text("Hit the plus button to save itno basket.")
+                                Text("Натисніть кнопку \"плюс\", щоб зберегти його в кошику.")
                                     .font(.custom(customFont, size: 18))
                                     .foregroundColor(.gray)
                                     .padding(.horizontal)
@@ -194,6 +194,13 @@ struct CardView: View {
                     .font(.custom(customFont, size: 17))
                     .fontWeight(.semibold)
                     .foregroundColor(.orange)
+                
+                Text(product.cheeseCrust ? "Сирний борт" : "")
+                    .font(.custom(customFont, size: 17))
+                    .fontWeight(.semibold)
+                    .foregroundColor(.orange)
+
+                
                 
                 // Quantity Buttons...
                 HStack(spacing: 10) {

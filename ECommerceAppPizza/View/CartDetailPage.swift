@@ -19,6 +19,8 @@ struct CartDetailPage: View {
     @State private var phone = ""
     @State private var location = ""
     
+    @State private var showingAlert = false
+    
     var body: some View {
         VStack(spacing: 10) {
             
@@ -86,40 +88,16 @@ struct CartDetailPage: View {
                 
                 
                 Button {
-                    let positions = sharedDataModel.cartProducts.map {
-                        var price = 0
-                        switch $0.size {
-                        case "S":
-                            price = $0.priceS
-                        case "M":
-                            price = $0.priceM
-                        case "Xl":
-                            price = $0.priceXl
-                        default:
-                            break
+                    sharedDataModel.confirmOrder(name: name, location: location, phone: phone, delivery: delivery, selectedPaymentOption: selectedPaymentOption) { result in
+                        switch result {
+                        case .success(_):
+                            print("Order successfully saved.")
+                            showingAlert = true  // Показать предупреждение
+                        case .failure(let error):
+                            print("Failed to save order: \(error)")
+                            showingAlert = true  // Показать предупреждение с ошибкой
                         }
-                        return Position(id: $0.id, title: $0.title, price: price, size: $0.size, count: $0.quantity)
                     }
-
-
-                     let order = Order(userName: name,
-                                       location: location,
-                                       positions: positions,
-                                       date: Date(),
-                                       status: "New",
-                                       number: phone,
-                                       cost: sharedDataModel.getTotalPrice(),
-                                       delivery: delivery == 0 ? "З собою" : "Доставка",
-                                       pay: selectedPaymentOption?.rawValue ?? "")
-
-                     sharedDataModel.dataBaseService.saveOrder(order: order) { result in
-                         switch result {
-                         case .success(_):
-                             print("Order successfully saved.")
-                         case .failure(let error):
-                             print("Failed to save order: \(error)")
-                         }
-                     }
                 } label: {
                     Text("Підтвердити")
                         .font(.custom(customFont, size: 18).bold())
@@ -140,6 +118,13 @@ struct CartDetailPage: View {
             Color("HomeBG")
                 .ignoresSafeArea()
         )
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Замовлення"),
+                message: Text("Ваше замовлення прийнято!"),
+                dismissButton: .default(Text("ОК"))
+            )
+        }
         
         
     }

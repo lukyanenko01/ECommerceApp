@@ -45,7 +45,10 @@ import Combine
                               priceXl: $0.priceXl,
                               description: $0.description,
                               size: $0.size,
-                              quantity: $0.quantity)
+                              quantity: $0.quantity,
+                              cheeseS: $0.cheeseS,
+                              cheeseM: $0.cheeseM,
+                              cheeseXl: $0.cheeseXl)
                      
                  }
                  self.filterProductByType()

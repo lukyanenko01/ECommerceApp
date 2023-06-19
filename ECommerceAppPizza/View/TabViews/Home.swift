@@ -109,8 +109,13 @@ struct Home: View {
             }
             .padding(.vertical)
         }
+        .disabled(homeData.isLoading) // блокируем интерфейс во время загрузки
+        .blur(radius: homeData.isLoading ? 3 : 0)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("HomeBG"))
+        
+        
+        
         // Updating data whenever tab changes...
         .onChange(of: homeData.productType) { newValue in
             homeData.filterProductByType()
@@ -145,8 +150,17 @@ struct Home: View {
             
         )
         
+        // Индикатор загрузки
+        if homeData.isLoading {
+            ProgressView()
+                .scaleEffect(2)
+                .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+        }
+        
         
     }
+    
+    
     
     // Since we're adding matched geometry effect...
     // avoiding code replication...

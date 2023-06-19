@@ -11,6 +11,9 @@ import SDWebImageSwiftUI
 struct ProductDetailView: View {
     var product: Products
     
+    @State var cheeseBord: Bool = false
+
+    
     @State var size = 0
     
     var selectedPrice: Int {
@@ -18,13 +21,25 @@ struct ProductDetailView: View {
         case 0:
             return product.priceS
         case 1:
-            return product.priceM
+            return product.priceM + cheesePrice
         case 2:
-            return product.priceXl
+            return product.priceXl + cheesePrice
         default:
             return product.priceS
         }
     }
+    
+    var cheesePrice: Int {
+        switch size {
+        case 1:
+            return cheeseBord ? product.cheeseM : 0
+        case 2:
+            return cheeseBord ? product.cheeseXl : 0
+        default:
+            return 0
+        }
+    }
+
 
     
     // For Matched Geometry Effect...
@@ -97,8 +112,25 @@ struct ProductDetailView: View {
                         .foregroundColor(.gray)
                         .padding(.top)
                     
-                    CustomSegmentedControl(selectedSegment: $size, segments: ["S", "M", "Xl"])
-
+                    if product.type == "Піца" {
+                        CustomSegmentedControl(selectedSegment: $size, segments: ["S", "M", "Xl"])
+                    }
+                    
+                    if product.type == "Піца" && size != 0 {
+                        HStack {
+                            Spacer()
+                            Toggle(isOn: $cheeseBord) {
+                                
+                                Text("Сирний борт")
+                                    .font(.custom(customFont, size: 17))
+                                
+                            }
+                            .fixedSize()
+                            .toggleStyle(OrangeToggleStyle())
+                            
+                        }
+                        .padding()
+                    }
                     
                     HStack {
                         Text("Ціна")
@@ -182,9 +214,11 @@ struct ProductDetailView: View {
         } else {
             var productToAdd = product
             productToAdd.size = ["S", "M", "Xl"][size]
+            productToAdd.cheeseCrust = cheeseBord  // обновить значение cheeseCrust
             shareData.cartProducts.append(productToAdd)
         }
     }
+
 
 }
 
@@ -193,5 +227,27 @@ struct ProductDetailView_Previews: PreviewProvider {
 //        ProductDetailView(product: HomeViewModel().product[0])
 //            .environmentObject(SharedDataModel())
         MainPage()
+    }
+}
+
+struct OrangeToggleStyle: ToggleStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack {
+            configuration.label
+
+            Spacer()
+
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(configuration.isOn ? Color.orange : Color.gray)
+                .frame(width: 50, height: 29)
+                .overlay(
+                    Circle()
+                        .fill(Color.white)
+                        .padding(3)
+                        .offset(x: configuration.isOn ? 10 : -10)
+                )
+                .animation(.spring(), value: configuration.isOn)
+                .onTapGesture { configuration.isOn.toggle() }
+        }
     }
 }

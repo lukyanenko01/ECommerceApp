@@ -57,11 +57,11 @@ struct LikedPage: View {
 //                            LottieView(name: "pizza", loopMode: .loop)
 
 
-                            Text("No favorites yet")
+                            Text("Ще немає обраних")
                                 .font(.custom(customFont, size: 25))
                                 .fontWeight(.semibold)
                             
-                            Text("Hit the like button on each product page to save favorite ones.")
+                            Text("Натисніть кнопку \"Мені подобається\" на сторінці кожного продукту, щоб зберегти обрані.")
                                 .font(.custom(customFont, size: 18))
                                 .foregroundColor(.gray)
                                 .padding(.horizontal)

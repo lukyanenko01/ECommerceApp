@@ -28,6 +28,10 @@ struct Products: Identifiable, Hashable {
     var productImage: String = ""
     var size: String
     var quantity: Int = 1
+    var cheeseS: Int = 0
+    var cheeseM: Int
+    var cheeseXl: Int
+    var cheeseCrust: Bool = false
 
     var representation: [String: Any] {
         var repres = [String: Any]()
@@ -41,6 +45,12 @@ struct Products: Identifiable, Hashable {
         repres["productImage"] = self.productImage
         repres["size"] = self.size
         repres["quantity"] = self.quantity
+        repres["cheeseS"] = self.cheeseS
+        repres["cheeseM"] = self.cheeseM
+        repres["cheeseXl"] = self.cheeseXl
+        repres["cheeseCrust"] = self.cheeseCrust
+
+
         return repres
     }
     
@@ -53,7 +63,11 @@ struct Products: Identifiable, Hashable {
                   priceXl: Int,
                   description: String,
                   size: String,
-                  quantity: Int) {
+                  quantity: Int,
+                  cheeseS: Int,
+                  cheeseM: Int,
+                  cheeseXl: Int,
+                  cheeseCrust: Bool = false) {
         self.id = id
         self.title = title
         self.type = type
@@ -64,6 +78,10 @@ struct Products: Identifiable, Hashable {
         self.description = description
         self.size = size
         self.quantity = quantity
+        self.cheeseS = cheeseS
+        self.cheeseM = cheeseM
+        self.cheeseXl = cheeseXl
+        self.cheeseCrust = cheeseCrust
 
     }
     
@@ -80,6 +98,11 @@ struct Products: Identifiable, Hashable {
         guard let productImage = data["productImage"] as? String else { return nil }
         guard let size = data["size"] as? String else { return nil }
         guard let quantity = data["quantity"] as? Int else { return nil }
+        guard let cheeseS = data["cheeseS"] as? Int else { return nil }
+        guard let cheeseM = data["cheeseM"] as? Int else { return nil }
+        guard let cheeseXl = data["cheeseXl"] as? Int else { return nil }
+        guard let cheeseCrust = data["cheeseCrust"] as? Bool else { return nil }
+
 
         
         self.id = id
@@ -92,6 +115,12 @@ struct Products: Identifiable, Hashable {
         self.productImage = productImage
         self.size = size
         self.quantity = quantity
+        self.cheeseS = cheeseS
+        self.cheeseM = cheeseM
+        self.cheeseXl = cheeseXl
+        self.cheeseCrust = cheeseCrust
+
+
     }
 }
 
