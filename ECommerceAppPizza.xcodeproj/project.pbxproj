@@ -26,6 +26,8 @@
 		F218108A2A3CD42500A5BA51 /* iPhoneNumberField in Frameworks */ = {isa = PBXBuildFile; productRef = F21810892A3CD42500A5BA51 /* iPhoneNumberField */; };
 		F2415CB72A376A970006A496 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2415CB62A376A970006A496 /* Order.swift */; };
 		F2415CBA2A37799D0006A496 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2415CB92A37799D0006A496 /* Position.swift */; };
+		F26DE5D12A4165700060A80E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26DE5D02A4165700060A80E /* ContentView.swift */; };
+		F26DE5D32A4167100060A80E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26DE5D22A4167100060A80E /* LocationManager.swift */; };
 		F27496652A37443900C87793 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F27496642A37443900C87793 /* SDWebImageSwiftUI */; };
 		F27496682A37513800C87793 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27496672A37513800C87793 /* CustomSegmentedControl.swift */; };
 		F274966A2A375CEF00C87793 /* CartDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27496692A375CEF00C87793 /* CartDetailPage.swift */; };
@@ -36,7 +38,7 @@
 		F2A729FF2A3024A1001F59A8 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A729FE2A3024A1001F59A8 /* ProductDetailView.swift */; };
 		F2A72A012A3024E5001F59A8 /* SharedDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A72A002A3024E5001F59A8 /* SharedDataModel.swift */; };
 		F2A72A032A302EF9001F59A8 /* CustomCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A72A022A302EF9001F59A8 /* CustomCorners.swift */; };
-		F2C98D4A2A40B3CD00FF2215 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C98D492A40B3CD00FF2215 /* MapView.swift */; };
+		F2C98D4C2A40BB3800FF2215 /* SearchLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C98D4B2A40BB3800FF2215 /* SearchLocationView.swift */; };
 		F2D2C3AD2A2F855A00870BDB /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2C3AC2A2F855A00870BDB /* Home.swift */; };
 		F2D2C3B22A2F88D100870BDB /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D2C3AF2A2F88D000870BDB /* Raleway-SemiBold.ttf */; };
 		F2D2C3B32A2F88D100870BDB /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D2C3B02A2F88D000870BDB /* Raleway-Bold.ttf */; };
@@ -62,6 +64,8 @@
 		F21810862A3CBBD000A5BA51 /* calculator.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = calculator.json; sourceTree = "<group>"; };
 		F2415CB62A376A970006A496 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		F2415CB92A37799D0006A496 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
+		F26DE5D02A4165700060A80E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F26DE5D22A4167100060A80E /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		F27496672A37513800C87793 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		F27496692A375CEF00C87793 /* CartDetailPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartDetailPage.swift; sourceTree = "<group>"; };
 		F29C72C72A2E52A300685D27 /* ECommerceAppPizza.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECommerceAppPizza.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,7 +76,7 @@
 		F2A729FE2A3024A1001F59A8 /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
 		F2A72A002A3024E5001F59A8 /* SharedDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataModel.swift; sourceTree = "<group>"; };
 		F2A72A022A302EF9001F59A8 /* CustomCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorners.swift; sourceTree = "<group>"; };
-		F2C98D492A40B3CD00FF2215 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		F2C98D4B2A40BB3800FF2215 /* SearchLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationView.swift; sourceTree = "<group>"; };
 		F2D2C3AC2A2F855A00870BDB /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		F2D2C3AF2A2F88D000870BDB /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBold.ttf"; sourceTree = "<group>"; };
 		F2D2C3B02A2F88D000870BDB /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
@@ -133,6 +137,14 @@
 			path = NetworkService;
 			sourceTree = "<group>";
 		};
+		F26DE5D42A4167170060A80E /* VM */ = {
+			isa = PBXGroup;
+			children = (
+				F26DE5D22A4167100060A80E /* LocationManager.swift */,
+			);
+			path = VM;
+			sourceTree = "<group>";
+		};
 		F27496662A37511C00C87793 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +199,16 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		F2C98D4D2A40BB5300FF2215 /* SearchingLocation */ = {
+			isa = PBXGroup;
+			children = (
+				F2C98D4B2A40BB3800FF2215 /* SearchLocationView.swift */,
+				F26DE5D42A4167170060A80E /* VM */,
+				F26DE5D02A4165700060A80E /* ContentView.swift */,
+			);
+			path = SearchingLocation;
+			sourceTree = "<group>";
+		};
 		F2D2C3AA2A2F853D00870BDB /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,7 +221,7 @@
 				F2A729FE2A3024A1001F59A8 /* ProductDetailView.swift */,
 				F2A72A022A302EF9001F59A8 /* CustomCorners.swift */,
 				F27496662A37511C00C87793 /* CustomView */,
-				F2C98D492A40B3CD00FF2215 /* MapView.swift */,
+				F2C98D4D2A40BB5300FF2215 /* SearchingLocation */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -384,11 +406,11 @@
 				F2D2C3C32A2FC44200870BDB /* ProfilePage.swift in Sources */,
 				F2A72A032A302EF9001F59A8 /* CustomCorners.swift in Sources */,
 				F2A729FF2A3024A1001F59A8 /* ProductDetailView.swift in Sources */,
+				F2C98D4C2A40BB3800FF2215 /* SearchLocationView.swift in Sources */,
 				F29C72CD2A2E52A300685D27 /* MainPage.swift in Sources */,
 				F2D2C3B82A2F8DE300870BDB /* Product.swift in Sources */,
 				F2D2C3AD2A2F855A00870BDB /* Home.swift in Sources */,
 				F2D2C3BF2A2FAC3C00870BDB /* SearchView.swift in Sources */,
-				F2C98D4A2A40B3CD00FF2215 /* MapView.swift in Sources */,
 				F21810832A3CBB1B00A5BA51 /* LottieView.swift in Sources */,
 				F2D2C3BB2A2F903C00870BDB /* HomeViewModel.swift in Sources */,
 				F2108A622A323A5B00011A1C /* DataBaseService.swift in Sources */,
@@ -397,8 +419,10 @@
 				F29C72CB2A2E52A300685D27 /* ECommerceAppPizzaApp.swift in Sources */,
 				F2415CB72A376A970006A496 /* Order.swift in Sources */,
 				F2108A472A31DCA700011A1C /* LikedPage.swift in Sources */,
+				F26DE5D12A4165700060A80E /* ContentView.swift in Sources */,
 				F2A72A012A3024E5001F59A8 /* SharedDataModel.swift in Sources */,
 				F2108A492A32194300011A1C /* CartPage.swift in Sources */,
+				F26DE5D32A4167100060A80E /* LocationManager.swift in Sources */,
 				F2D2C3BD2A2F9D8900870BDB /* MoreProductsView.swift in Sources */,
 				F2415CBA2A37799D0006A496 /* Position.swift in Sources */,
 				F27496682A37513800C87793 /* CustomSegmentedControl.swift in Sources */,
@@ -535,6 +559,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ECommerceAppPizza/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -570,6 +595,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ECommerceAppPizza/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

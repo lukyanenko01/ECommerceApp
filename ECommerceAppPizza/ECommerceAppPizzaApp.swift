@@ -17,6 +17,7 @@ struct ECommerceAppPizzaApp: App {
     var body: some Scene {
         WindowGroup {
             MainPage()
+//            ContentView()
                 .preferredColorScheme(.light)
         }
     }

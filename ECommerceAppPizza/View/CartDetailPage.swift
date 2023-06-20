@@ -20,6 +20,8 @@ struct CartDetailPage: View {
     @State private var location = ""
     
     @State private var showingAlert = false
+    @State var isShowingLocationSearch: Bool = false
+
     
     var body: some View {
         VStack(spacing: 10) {
@@ -58,14 +60,20 @@ struct CartDetailPage: View {
                         
                         CustomTextField(text: $name, hint: "Ім'я", leadingIcon: Image(systemName: "person"))
                         CustomTextField(text: $phone, hint: "Телефон", leadingIcon: Image(systemName: "phone"), isPassword: true)
-                           
+                        
                         
                         
                         if delivery == 1 {
-                            CustomTextField(text: $location, hint: "Адреса доставки", leadingIcon: Image(systemName: "location"))
+                            Button(action: {
+                                isShowingLocationSearch = true
+                            }) {
+                                CustomTextField(text: $location, hint: "Адреса доставки", leadingIcon: Image(systemName: "location"))
+                            }
+                            .sheet(isPresented: $isShowingLocationSearch) {
+                                SearchLocationView(location: $location, isShowing: $isShowingLocationSearch)
+                            }
                         }
                     }
-                    
                 }
                 .padding([.horizontal, .bottom], 20)
                 .padding(.top,25)
@@ -202,4 +210,29 @@ struct CustomTextField: View {
         }
     }
 }
+
+
+//class NavigationStack: ObservableObject {
+//    @Published var viewStack: [AnyView] = []
+//    @Published var currentView: AnyView
+//
+//    init(_ currentView: AnyView) {
+//        self.currentView = currentView
+//    }
+//
+//    func back() {
+//        if viewStack.count == 0 {
+//            return
+//        }
+//
+//        let last = viewStack.count - 1
+//        currentView = viewStack[last]
+//        viewStack.remove(at: last)
+//    }
+//
+//    func advance(_ nextView: AnyView) {
+//        viewStack.append(currentView)
+//        currentView = nextView
+//    }
+//}
 
