@@ -211,28 +211,3 @@ struct CustomTextField: View {
     }
 }
 
-
-//class NavigationStack: ObservableObject {
-//    @Published var viewStack: [AnyView] = []
-//    @Published var currentView: AnyView
-//
-//    init(_ currentView: AnyView) {
-//        self.currentView = currentView
-//    }
-//
-//    func back() {
-//        if viewStack.count == 0 {
-//            return
-//        }
-//
-//        let last = viewStack.count - 1
-//        currentView = viewStack[last]
-//        viewStack.remove(at: last)
-//    }
-//
-//    func advance(_ nextView: AnyView) {
-//        viewStack.append(currentView)
-//        currentView = nextView
-//    }
-//}
-

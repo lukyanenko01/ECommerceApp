@@ -50,6 +50,7 @@ struct SearchLocationView: View {
                             
                             // Navigation to MapView
                             navigationTag = "MAPVIEW"
+                            isShowingMapViewSelection = true
                         } label: {
                             HStack(spacing: 15) {
                                 Image(systemName: "mappin.circle.fill")
@@ -102,19 +103,12 @@ struct SearchLocationView: View {
         .padding()
         .frame(maxHeight: .infinity, alignment: .top)
         .fullScreenCover(isPresented: $isShowingMapViewSelection) {
-            MapViewSelection(location: $location, isShowing: $isShowingMapViewSelection)
+            MapViewSelection(location: $location, isShowing: $isShowing, isShowingMapViewSelection: $isShowingMapViewSelection)
                 .environmentObject(locationManager)
         }
-//        .background {
-//            if isShowingMapViewSelection {
-//                MapViewSelection(location: $location, isShowing: $isShowingMapViewSelection)
-//                    .environmentObject(locationManager)
-//                    .onDisappear {
-//                        // Dismiss the SearchLocationView when MapViewSelection is dismissed
-//                        isShowing = false
-//                    }
-//            }
-//        }
+        .onChange(of: isShowingMapViewSelection) { newValue in
+            isShowing = newValue
+        }
     }
 }
 
@@ -125,6 +119,8 @@ struct MapViewSelection: View {
     @Binding var location: String  // добавляем привязку к location
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var isShowing: Bool
+    @Binding var isShowingMapViewSelection: Bool
+
 
     
     var body: some View {
@@ -161,6 +157,7 @@ struct MapViewSelection: View {
                             location = place.name ?? ""  // обновляем location
                         }
                         isShowing = false
+                        isShowingMapViewSelection = false
                     } label: {
                         Text("Confirm Location")
                             .fontWeight(.semibold)
