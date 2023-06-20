@@ -153,10 +153,11 @@ struct ProductDetailView: View {
                             .frame(maxWidth: .infinity)
                         
                             .background(
-                                Color.orange
+                                isAddedToCart() ? Color.red : Color.orange
+                                )
                                     .cornerRadius(15)
                                     .shadow(color: .black.opacity(0.06), radius: 5, x: 5, y: 5)
-                            )
+                            
                     }
 
                     
@@ -204,6 +205,14 @@ struct ProductDetailView: View {
         }
         
     }
+    
+//    func addToCart() {
+//        var productToAdd = product
+//        productToAdd.size = ["S", "M", "Xl"][size]
+//        productToAdd.cheeseCrust = cheeseBord  // обновить значение cheeseCrust
+//        shareData.cartProducts.append(productToAdd)
+//    }
+
     
     func addToCart() {
         if let index = shareData.cartProducts.firstIndex(where: { cartProduct in

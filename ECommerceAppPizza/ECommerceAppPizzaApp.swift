@@ -12,17 +12,28 @@ import FirebaseCore
 struct ECommerceAppPizzaApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-
+    
+    @AppStorage("FirstLaunch") var firstLaunch: Bool = true
     
     var body: some Scene {
         WindowGroup {
-            MainPage()
-//            ContentView()
-                .preferredColorScheme(.light)
+            if firstLaunch {
+                UnboardingView()
+                    .preferredColorScheme(.light)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            // Обновите состояние после некоторого времени,
+                            // чтобы UnboardingView отобразился какое-то время перед переходом к MainPage
+                            firstLaunch = false
+                        }
+                    }
+            } else {
+                MainPage()
+                    .preferredColorScheme(.light)
+            }
         }
     }
 }
-
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
@@ -31,4 +42,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     return true
   }
 }
+
+
 
