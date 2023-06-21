@@ -7,6 +7,9 @@
 
 import SwiftUI
 import FirebaseCore
+import FirebaseCore
+import Firebase
+import FirebaseAuth
 
 @main
 struct ECommerceAppPizzaApp: App {

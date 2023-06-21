@@ -10,8 +10,10 @@ import SDWebImageSwiftUI
 
 struct ProductDetailView: View {
     var product: Products
+    var dataBaseService = DataBaseService()
     
     @State var cheeseBord: Bool = false
+    @State private var showingAlert = false
 
     
     @State var size = 0
@@ -83,7 +85,9 @@ struct ProductDetailView: View {
                         
 
                     }
-
+                    .alert(isPresented: $showingAlert) {
+                        Alert(title: Text("Авторизуйтесь"), message: Text("Для добавления в избранное, пожалуйста, авторизуйтесь."), dismissButton: .default(Text("OK")))
+                    }
                     
                 }
                 .padding()
@@ -194,24 +198,36 @@ struct ProductDetailView: View {
     }
     
     func addToLiked() {
-        
-        if let index = shareData.likedProducts.firstIndex(where: { product in
-            return self.product.id == product.id
-        }) {
-            // Remove from liked...
-            shareData.likedProducts.remove(at: index)
+        if AuthService.shared.currentUser == nil {
+            showingAlert = true
         } else {
-            shareData.likedProducts.append(product)
+            if let index = shareData.likedProducts.firstIndex(where: { product in
+                return self.product.id == product.id
+            }) {
+                // Remove from liked...
+                shareData.likedProducts.remove(at: index)
+                dataBaseService.removeFromFavorites(product: product, userId: AuthService.shared.currentUser!.uid) { result in
+                    switch result {
+                    case .success():
+                        print("Product removed from favorites successfully.")
+                    case .failure(let error):
+                        print("Failed to remove product from favorites: \(error.localizedDescription)")
+                    }
+                }
+            } else {
+                shareData.likedProducts.append(product)
+                dataBaseService.saveToFavorites(product: product, userId: AuthService.shared.currentUser!.uid) { result in
+                    switch result {
+                    case .success():
+                        print("Product added to favorites successfully.")
+                    case .failure(let error):
+                        print("Failed to add product to favorites: \(error.localizedDescription)")
+                    }
+                }
+            }
         }
-        
     }
-    
-//    func addToCart() {
-//        var productToAdd = product
-//        productToAdd.size = ["S", "M", "Xl"][size]
-//        productToAdd.cheeseCrust = cheeseBord  // обновить значение cheeseCrust
-//        shareData.cartProducts.append(productToAdd)
-//    }
+
 
     
     func addToCart() {

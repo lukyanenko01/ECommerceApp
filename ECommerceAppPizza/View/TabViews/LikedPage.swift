@@ -9,109 +9,126 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct LikedPage: View {
-    @EnvironmentObject var sharedData: SharedDataModel
-    
+    @StateObject private var viewModel = LikedPageViewModel()
+
     // Delete Option...
     @State var showDeleteOption: Bool = false
     
     var body: some View {
         
         NavigationView {
-            ScrollView(.vertical, showsIndicators: false) {
-                
-                VStack {
+            if viewModel.isLoading {
+                         ProgressView()
+                             .scaleEffect(2, anchor: .center)
+                             .progressViewStyle(CircularProgressViewStyle(tint: Color.orange))
+                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                             .navigationBarHidden(true)
+                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                             .background(
+                             
+                                 Color("HomeBG")
+                                     .ignoresSafeArea()
+                             
+                             )
+            } else {
+                ScrollView(.vertical, showsIndicators: false) {
                     
-                    HStack {
-                        Text("Favorites")
-                            .font(.custom(customFont, size: 28).bold())
+                    VStack {
                         
-                        Spacer()
-                        
-                        Button {
-                            withAnimation {
-                                showDeleteOption.toggle()
-                            }
-                        } label: {
-                            Image(systemName: "trash.fill")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundColor(.orange)
-                                .frame(width: 22, height: 22)
+                        HStack {
+                            Text("Favorites")
+                                .font(.custom(customFont, size: 28).bold())
                             
-                        }
-                        .opacity(sharedData.likedProducts.isEmpty ? 0 : 1)
-
-                    }
-                    
-                    // Cheking if liked products are empty
-                    if sharedData.likedProducts.isEmpty {
-                       // LottieView(name: "pizza", loopMode: .loop)
-
-                        Group {
-                            Image("noLike")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .padding()
-                                .padding(.top,35)
-
-//                            LottieView(name: "pizza", loopMode: .loop)
-
-
-                            Text("Ще немає обраних")
-                                .font(.custom(customFont, size: 25))
-                                .fontWeight(.semibold)
+                            Spacer()
                             
-                            Text("Натисніть кнопку \"Мені подобається\" на сторінці кожного продукту, щоб зберегти обрані.")
-                                .font(.custom(customFont, size: 18))
-                                .foregroundColor(.gray)
-                                .padding(.horizontal)
-                                .padding(.top,10)
-                                .multilineTextAlignment(.center)
-                            
-                        }
-                        
-                    } else {
-                        // Displaying Products...
-                        VStack(spacing: 15) {
-                            
-                            
-                            ForEach(sharedData.likedProducts) { product in
+                            Button {
+                                withAnimation {
+                                    showDeleteOption.toggle()
+                                }
+                            } label: {
+                                Image(systemName: "trash.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(.orange)
+                                    .frame(width: 22, height: 22)
                                 
-                                HStack(spacing: 0) {
+                            }
+                            .opacity(viewModel.favoriteProducts.isEmpty ? 0 : 1)
+                            
+                        }
+                        
+                        // Cheking if liked products are empty
+                        if viewModel.favoriteProducts.isEmpty {
+                            EmptyFavoritesView()
+                        } else {
+                            // Displaying Products...
+                            VStack(spacing: 15) {
+                                
+                                
+                                ForEach(viewModel.favoriteProducts) { product in
                                     
-                                    if showDeleteOption {
-                                        Button {
-                                            deleteProduct(product: product)
-                                        } label: {
-                                            Image(systemName: "minus.circle.fill")
-                                                .font(.title2)
-                                                .foregroundColor(.red)
+                                    HStack(spacing: 0) {
+                                        
+                                        if showDeleteOption {
+                                            Button {
+                                                viewModel.deleteProduct(product: product)
+                                            } label: {
+                                                Image(systemName: "minus.circle.fill")
+                                                    .font(.title2)
+                                                    .foregroundColor(.red)
+                                            }
+                                            .padding(.trailing)
+                                            
                                         }
-                                        .padding(.trailing)
-
+                                        
+                                        CardView(product: product)
                                     }
-                                    
-                                    CardView(product: product)
                                 }
                             }
+                            .padding(.top,25)
+                            .padding(.horizontal)
                         }
-                        .padding(.top,25)
-                        .padding(.horizontal)
+                        
+                        if AuthService.shared.currentUser == nil  {
+                            
+                            Group {
+                                NavigationLink(destination: AuthView()) {
+                                    Text("Залогінитися")
+                                        .font(.custom(customFont, size: 18).bold())
+                                        .foregroundColor(.white)
+                                        .padding(.vertical,18)
+                                        .frame(maxWidth: .infinity)
+                                        .background(Color.orange)
+                                        .cornerRadius(15)
+                                        .shadow(color: .black.opacity(0.05), radius: 5, x: 5, y: 5)
+                                }
+                                .padding(.vertical)
+                                //.padding(.vertical)
+                                
+                            }
+                            .padding(.horizontal,25)
+                            
+                        }
+                        
+                        
                     }
-                    
+                    .padding()
                 }
-                .padding()
+                .navigationBarHidden(true)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(
+                
+                    Color("HomeBG")
+                        .ignoresSafeArea()
+                
+                )
             }
-            .navigationBarHidden(true)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(
-            
-                Color("HomeBG")
-                    .ignoresSafeArea()
-            
-            )
+
         }
-        
+        .onAppear {
+            viewModel.fetchFavoriteProducts()
+            showDeleteOption = false
+        }
     }
     
     @ViewBuilder
@@ -146,23 +163,22 @@ struct LikedPage: View {
         
         )
     }
-    
-    func deleteProduct(product: Products) {
-        if let index = sharedData.likedProducts.firstIndex(where: { currentProduct in
-            return product.id ==  currentProduct.id
-        }) {
-            let _ = withAnimation {
-                // removing...
-                sharedData.likedProducts.remove(at: index)
-            }
-        }
-    }
-    
 }
 
 struct LikedPage_Previews: PreviewProvider {
     static var previews: some View {
         LikedPage()
-            .environmentObject(SharedDataModel())
     }
 }
+
+
+//    func deleteProduct(product: Products) {
+//        if let index = sharedData.likedProducts.firstIndex(where: { currentProduct in
+//            return product.id ==  currentProduct.id
+//        }) {
+//            let _ = withAnimation {
+//                // removing...
+//                sharedData.likedProducts.remove(at: index)
+//            }
+//        }
+//    }

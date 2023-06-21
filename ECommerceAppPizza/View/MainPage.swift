@@ -33,7 +33,6 @@ struct MainPage: View {
                     .tag(Tab.Home)
                 
                 LikedPage()
-                    .environmentObject(sharedData)
                     .tag(Tab.Liked)
                 
                 ProfilePage()
