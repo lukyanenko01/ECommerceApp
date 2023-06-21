@@ -10,19 +10,54 @@ import SwiftUI
 class SharedDataModel: ObservableObject {
     
     let dataBaseService = DataBaseService()
-
-    // Detail Product Data...
     @Published var detailProduct: Products?
     @Published var showDetailProduct: Bool = false
-    
-    // Matched Geometry Effect from Search page
     @Published var fromSearchPage: Bool = false
-    
-    // Like Products...
     @Published var likedProducts: [Products] = []
-    
-    // Basket Products...
     @Published var cartProducts: [Products] = []
+    
+    init() {
+        if AuthService.shared.currentUser != nil {
+            loadLikedProducts()
+        }
+    }
+    
+    private func loadLikedProducts() {
+        dataBaseService.getFavoriteProductsForUser(userId: AuthService.shared.currentUser!.uid) { [weak self] result in
+            switch result {
+            case .success(let products):
+                DispatchQueue.main.async {
+                    self?.likedProducts = products
+                }
+            case .failure(let error):
+                print("Failed to load favorite products: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func updateLikedProduct(_ product: Products) {
+        if let index = likedProducts.firstIndex(where: { $0.id == product.id }) {
+            likedProducts.remove(at: index)
+            dataBaseService.removeFromFavorites(product: product, userId: AuthService.shared.currentUser!.uid) { result in
+                switch result {
+                case .success():
+                    print("Product removed from favorites successfully.")
+                case .failure(let error):
+                    print("Failed to remove product from favorites: \(error.localizedDescription)")
+                }
+            }
+        } else {
+            likedProducts.append(product)
+            dataBaseService.saveToFavorites(product: product, userId: AuthService.shared.currentUser!.uid) { result in
+                switch result {
+                case .success():
+                    print("Product added to favorites successfully.")
+                case .failure(let error):
+                    print("Failed to add product to favorites: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
     
     // calculation Total price...
     func getTotalPrice() -> String {
