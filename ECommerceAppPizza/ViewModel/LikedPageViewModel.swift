@@ -15,7 +15,11 @@ class LikedPageViewModel: ObservableObject {
     
     func fetchFavoriteProducts() {
         self.isLoading = true
-        guard let userId = AuthService.shared.currentUser?.uid else { return }
+        guard let userId = AuthService.shared.currentUser?.uid else {
+            self.isLoading = false
+            return
+            
+        }
         
         dataBaseService.getFavoriteProductsForUser(userId: userId) { result in
             switch result {

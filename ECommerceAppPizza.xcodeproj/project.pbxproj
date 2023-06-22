@@ -44,6 +44,7 @@
 		F2A729FF2A3024A1001F59A8 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A729FE2A3024A1001F59A8 /* ProductDetailView.swift */; };
 		F2A72A012A3024E5001F59A8 /* SharedDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A72A002A3024E5001F59A8 /* SharedDataModel.swift */; };
 		F2A72A032A302EF9001F59A8 /* CustomCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A72A022A302EF9001F59A8 /* CustomCorners.swift */; };
+		F2B806F52A445BD30001A68D /* SettingProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B806F42A445BD30001A68D /* SettingProfile.swift */; };
 		F2C98D4C2A40BB3800FF2215 /* SearchLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C98D4B2A40BB3800FF2215 /* SearchLocationView.swift */; };
 		F2D2C3AD2A2F855A00870BDB /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2C3AC2A2F855A00870BDB /* Home.swift */; };
 		F2D2C3B22A2F88D100870BDB /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2D2C3AF2A2F88D000870BDB /* Raleway-SemiBold.ttf */; };
@@ -89,6 +90,7 @@
 		F2A729FE2A3024A1001F59A8 /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
 		F2A72A002A3024E5001F59A8 /* SharedDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDataModel.swift; sourceTree = "<group>"; };
 		F2A72A022A302EF9001F59A8 /* CustomCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorners.swift; sourceTree = "<group>"; };
+		F2B806F42A445BD30001A68D /* SettingProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfile.swift; sourceTree = "<group>"; };
 		F2C98D4B2A40BB3800FF2215 /* SearchLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationView.swift; sourceTree = "<group>"; };
 		F2D2C3AC2A2F855A00870BDB /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		F2D2C3AF2A2F88D000870BDB /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				F2C98D4D2A40BB5300FF2215 /* SearchingLocation */,
 				F27496662A37511C00C87793 /* CustomView */,
 				F26DE5FD2A43515D0060A80E /* AuthView.swift */,
+				F2B806F42A445BD30001A68D /* SettingProfile.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				F274966A2A375CEF00C87793 /* CartDetailPage.swift in Sources */,
 				F2D2C3C12A2FB62200870BDB /* StraggeredGrid.swift in Sources */,
 				F26DE5FE2A43515D0060A80E /* AuthView.swift in Sources */,
+				F2B806F52A445BD30001A68D /* SettingProfile.swift in Sources */,
 				F29C72CB2A2E52A300685D27 /* ECommerceAppPizzaApp.swift in Sources */,
 				F2415CB72A376A970006A496 /* Order.swift in Sources */,
 				F2108A472A31DCA700011A1C /* LikedPage.swift in Sources */,

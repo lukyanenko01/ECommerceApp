@@ -69,8 +69,12 @@ class DataBaseService {
             guard let userName = data["name"] as? String else { return }
             guard let email = data["email"] as? String else { return }
             guard let id = data["id"] as? String else { return }
+            guard let phone = data["phone"] as? String else { return }
+            guard let adress = data["adress"] as? String else { return }
 
-            let profile = Profile(id: id, name: userName, email: email)
+
+
+            let profile = Profile(id: id, name: userName, email: email, phone: phone, adress: adress)
 
             completion(.success(profile))
 

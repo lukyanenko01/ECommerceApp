@@ -28,8 +28,10 @@ struct ProfilePage: View {
                                         .multilineTextAlignment(.center)
                                     
                                     Group {
-                                        NavigationLink(destination: AuthView()) {
-                                            Text("Увійти")
+                                        Button {
+                                            AppRouter.switchRootView(to: AuthView().preferredColorScheme(.light))
+                                        } label: {
+                                            Text("Залогінитися")
                                                 .font(.custom(customFont, size: 18).bold())
                                                 .foregroundColor(.white)
                                                 .padding(.vertical,18)
@@ -38,7 +40,6 @@ struct ProfilePage: View {
                                                 .cornerRadius(15)
                                                 .shadow(color: .black.opacity(0.05), radius: 5, x: 5, y: 5)
                                         }
-                                        .padding(.vertical)
                                     }
                                     .padding(.horizontal,25)
                                 }
@@ -68,7 +69,7 @@ struct ProfilePage: View {
                         // Custom Navigation Links...
                         if AuthService.shared.currentUser != nil  {
                             CustomNavigationLink(title: "Налаштування профілю") {
-                                Text("")
+                                SettingProfile()
                                     .navigationTitle("Налаштування профілю")
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                                     .background(Color("HomeBG").ignoresSafeArea())

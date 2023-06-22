@@ -92,7 +92,9 @@ struct LikedPage: View {
                         if AuthService.shared.currentUser == nil  {
                             
                             Group {
-                                NavigationLink(destination: AuthView()) {
+                                Button {
+                                    AppRouter.switchRootView(to: AuthView().preferredColorScheme(.light))
+                                } label: {
                                     Text("Залогінитися")
                                         .font(.custom(customFont, size: 18).bold())
                                         .foregroundColor(.white)
@@ -102,9 +104,6 @@ struct LikedPage: View {
                                         .cornerRadius(15)
                                         .shadow(color: .black.opacity(0.05), radius: 5, x: 5, y: 5)
                                 }
-                                .padding(.vertical)
-                                //.padding(.vertical)
-                                
                             }
                             .padding(.horizontal,25)
                             

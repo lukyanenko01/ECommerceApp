@@ -32,7 +32,7 @@ class AuthService {
                 
                 let profile = Profile(id: result.user.uid,
                                       name: name,
-                                      email: email)
+                                      email: email, phone: "", adress: "")
                 self.dataBaseService.setProfile(user: profile) { resultdb in
                     switch resultdb {
                         

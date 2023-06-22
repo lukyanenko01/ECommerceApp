@@ -12,7 +12,6 @@ struct AuthView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var currentPassword = ""
-    @State private var name = ""
     
     @State private var isAuth = true
     @State private var isPasswordVisible = false
@@ -29,25 +28,24 @@ struct AuthView: View {
             VStack(spacing: 10) {
                 GeometryReader {
                     let size = $0.size
-                    Image("unboarding3")
+                    Image("auth")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .padding(15)
                         .frame(width: size.width, height: size.height)
                 }
-                Text(isAuth ? "Autorización" : "Inscripción")
-                    .font(.system(size: isAuth ? 40 : 30).bold())
-                    .foregroundColor(Color("ButtonCalculator"))
+                Text(isAuth ? "Авторизація" : "Реєстрація")
+                    .font(.custom(customFont, size: isAuth ? 40 : 30).bold())
+
+                    .foregroundColor(.orange)
                     .padding(.bottom, 30)
                 
-                if !isAuth {
-                    CustomTextField(text: $name, hint: "Nombre", leadingIcon: Image(systemName: "person"))
-                }
-                CustomTextField(text: $email, hint: "Correo electrónico", leadingIcon: Image(systemName: "envelope"), keyboardType: .emailAddress, autocapitalization: .none)
-                CustomTextField(text: $password, hint: "Repetir contraseña", leadingIcon: Image(systemName: "lock"), isPassword: true)
+
+                CustomTextField(text: $email, hint: "email", leadingIcon: Image(systemName: "envelope"), keyboardType: .emailAddress, autocapitalization: .none)
+                CustomTextField(text: $password, hint: "Пароль", leadingIcon: Image(systemName: "lock"), isPassword: true)
                 
                 if !isAuth {
-                    CustomTextField(text: $currentPassword, hint: "Contraseña", leadingIcon: Image(systemName: "lock"), isPassword: true)
+                    CustomTextField(text: $currentPassword, hint: "Повторити пароль", leadingIcon: Image(systemName: "lock"), isPassword: true)
                 }
                 
                 Spacer(minLength: 10)
@@ -61,35 +59,34 @@ struct AuthView: View {
                                 AppRouter.switchRootView(to: MainPage().preferredColorScheme(.light))
 
                             case .failure(let error):
-                                alertMessage = "Error de autorización \(error.localizedDescription)"
+                                alertMessage = "Помилка авторизації: \(error.localizedDescription)"
                                 isShowAlert.toggle()
                             }
                         }
                         
                     } else {
                         
-                        guard !name.isEmpty, password == currentPassword else {
-                            self.alertMessage = name.isEmpty ? "El nombre es obligatorio" : "Las contraseñas no coinciden"
+                        guard password == currentPassword else {
+                            self.alertMessage =  "Паролі не збігаються"
                             self.isShowAlert.toggle()
                             return
                         }
                         
-                        AuthService.shared.singUp(name: self.name, email: self.email, password: self.password) { result in
+                        AuthService.shared.singUp(name: "", email: self.email, password: self.password) { result in
                             switch result {
                                 
                             case .success(let user):
-                                alertMessage = "Ponte al día con el correo electrónico \(user.email ?? "")"
+                                alertMessage = "Успішна авторизація \(user.email ?? "")"
                                // self.isShowAlert.toggle()
                                 
                                 self.email = ""
                                 self.password = ""
                                 self.currentPassword = ""
-                                self.name = ""
                                 //self.isAuth.toggle()
                                 AppRouter.switchRootView(to: MainPage().preferredColorScheme(.light))
 
                             case .failure(let error):
-                                alertMessage = "Error de registro - \(error.localizedDescription)"
+                                alertMessage = "Помилка реєстрації - \(error.localizedDescription)"
                                 self.isShowAlert.toggle()
                             }
                         }
@@ -97,7 +94,24 @@ struct AuthView: View {
                         
                     }
                 } label: {
-                    Text(isAuth ? "Conectarse" : "Crear perfil")
+                    Text(isAuth ? "Увійти" : "Створити профіль")
+                        .font(.custom(customFont, size: 18))
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .padding(.vertical, 15)
+                        .frame(maxWidth: .infinity)
+                        .background {
+                            Capsule()
+                                .fill(Color.orange)
+                            
+                        }
+                }
+                
+                Button {
+                    isAuth.toggle()
+                } label: {
+                    Text(isAuth ? "Реєстрація" : "Повернутися")
+                        .font(.custom(customFont, size: 18))
                         .fontWeight(.semibold)
                         .foregroundColor(.white)
                         .padding(.vertical, 15)
@@ -109,26 +123,30 @@ struct AuthView: View {
                         }
                 }
                 
-                Button {
-                    isAuth.toggle()
-                } label: {
-                    Text(isAuth ? "Inscripción" : "Volver")
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .padding(.vertical, 15)
-                        .frame(maxWidth: .infinity)
-                        .background {
-                            Capsule()
-                                .fill(Color("BG"))
-                            
-                        }
+                if isAuth {
+                    Button {
+                        AppRouter.switchRootView(to: MainPage().preferredColorScheme(.light))
+                    } label: {
+                        Text("Вхід без реєстрації")
+                            .font(.custom(customFont, size: 18))
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .padding(.vertical, 15)
+                            .frame(maxWidth: .infinity)
+                            .background {
+                                Capsule()
+                                    .fill(Color("BG"))
+                                
+                            }
+                    }
                 }
                 Button(action: {
                     if let url = URL(string: "https://belok.ua") {
                         UIApplication.shared.open(url)
                     }
                 }) {
-                    Text("Política de privacidad")
+                    Text("Privacy Policy")
+                        .font(.custom(customFont, size: 16))
                         .fontWeight(.semibold)
                         .underline()
                         .foregroundColor(.blue)
