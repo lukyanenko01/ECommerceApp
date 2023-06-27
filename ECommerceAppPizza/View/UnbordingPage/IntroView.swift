@@ -142,37 +142,10 @@ struct IntroView<ActionView: View>: View {
     
 }
 
-struct PageIntro: Identifiable, Hashable {
-    
-    var id: UUID = .init()
-    var introAssetImage: String
-    var title: String
-    var subTitle: String
-    var displaysAction: Bool = false
-    
-}
+
 
 var pageIntros: [PageIntro] = [
     .init(introAssetImage: "unboarding1", title: "ПіцаАЄПіцаАЄПіцаАЄПіцаАЄ", subTitle: "ПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄ"),
     .init(introAssetImage: "unboarding2", title: "ПіцаАЄПіцаАЄПіцаАЄПіцаАЄ", subTitle: "ПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄ"),
     .init(introAssetImage: "unboarding3", title: "ПіцаАЄПіцаАЄПіцаАЄПіцаАЄ", subTitle: "ПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄ", displaysAction: true)
 ]
-
-
-struct CustomIndicatorView: View {
-    
-    var totalProgress: Int
-    var currentPage: Int
-    var activeTint: Color = .black
-    var inActiveTint: Color = .gray.opacity(0.5)
-    
-    var body: some View {
-        HStack(spacing: 8) {
-            ForEach(0..<totalProgress, id: \.self) {
-                Circle()
-                    .fill(currentPage == $0 ? activeTint : inActiveTint)
-                    .frame(width: 4, height: 4)
-            }
-        }
-    }
-}

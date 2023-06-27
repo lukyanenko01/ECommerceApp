@@ -24,6 +24,27 @@ class AuthService {
     
     var currentUserEmail: String?
     
+    func updateProfile(name: String, email: String, phone: String, adress: String, completion: @escaping (Result<User, Error>) -> Void) {
+        
+        guard let currentUser = self.currentUser else { return }
+        
+        let profile = Profile(id: currentUser.uid,
+                              name: name,
+                              email: email,
+                              phone: phone,
+                              adress: adress)
+        
+        dataBaseService.updateProfile(user: profile) { result in
+            switch result {
+            
+            case .success(_):
+                completion(.success(currentUser))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     func singUp(name: String, email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
         
         auth.createUser(withEmail: email, password: password) { result, error in
@@ -32,7 +53,9 @@ class AuthService {
                 
                 let profile = Profile(id: result.user.uid,
                                       name: name,
-                                      email: email, phone: "", adress: "")
+                                      email: email,
+                                      phone: "",
+                                      adress: "")
                 self.dataBaseService.setProfile(user: profile) { resultdb in
                     switch resultdb {
                         

@@ -87,7 +87,7 @@ struct ProfilePage: View {
                         
                         if AuthService.shared.currentUser != nil  {
                             CustomNavigationLink(title: "Історія замовлень") {
-                                Text("")
+                                HistoruOrders()
                                     .navigationTitle("Історія замовлень")
                                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                                     .background(Color("HomeBG").ignoresSafeArea())
@@ -102,12 +102,20 @@ struct ProfilePage: View {
                                 .background(Color("HomeBG").ignoresSafeArea())
                         }
                         
-                        CustomNavigationLink(title: "Розробник додатків") {
+                        CustomNavigationLink(title: "Developer") {
                             Text("")
                                 .navigationTitle("Налаштування профілю")
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .background(Color("HomeBG").ignoresSafeArea())
                         }
+                        
+                        CustomNavigationLink(title: "Privacy Policy") {
+                            Text("")
+                                .navigationTitle("Налаштування профілю")
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .background(Color("HomeBG").ignoresSafeArea())
+                        }
+                        
                     }
                     .padding(.horizontal, 22)
                     .padding(.vertical,20)

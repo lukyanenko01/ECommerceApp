@@ -124,6 +124,24 @@ class SharedDataModel: ObservableObject {
                  completion(.failure(error))
              }
          }
+        
+        guard let user = AuthService.shared.currentUser else {
+            print("No user is signed in.")
+            return
+        }
+        
+        if let user = AuthService.shared.currentUser {
+            dataBaseService.saveOrderForUser(order: order, userId: user.uid) { result in
+                switch result {
+                case .success:
+                    print("Order saved successfully.")
+                case .failure(let error):
+                    print("Failed to save order: \(error.localizedDescription)")
+                }
+            }
+        } else {
+            print("No user is signed in.")
+        }
     }
 
 

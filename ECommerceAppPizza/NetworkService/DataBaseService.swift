@@ -66,20 +66,28 @@ class DataBaseService {
         usersRef.document(AuthService.shared.currentUser!.uid).getDocument { docSnapsot, error in
             guard let snap = docSnapsot else { return }
             guard let data = snap.data() else { return }
-            guard let userName = data["name"] as? String else { return }
-            guard let email = data["email"] as? String else { return }
-            guard let id = data["id"] as? String else { return }
-            guard let phone = data["phone"] as? String else { return }
-            guard let adress = data["adress"] as? String else { return }
-
-
+            let userName = data["name"] as? String ?? "n/a"
+            let email = data["email"] as? String ?? "n/a"
+            let id = data["id"] as? String ?? "n/a"
+            let phone = data["phone"] as? String ?? "n/a"
+            let adress = data["adress"] as? String ?? "n/a"
 
             let profile = Profile(id: id, name: userName, email: email, phone: phone, adress: adress)
 
             completion(.success(profile))
-
         }
     }
+
+    func updateProfile(user: Profile, completion: @escaping (Result<Profile, Error>) -> Void) {
+        usersRef.document(user.id).updateData(user.representation) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(user))
+            }
+        }
+    }
+
 
     func saveToFavorites(product: Products, userId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let favoriteProductRef = usersRef.document(userId).collection("favorites").document(product.id)
@@ -118,5 +126,34 @@ class DataBaseService {
         }
     }
 
+    func saveOrderForUser(order: Order, userId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        var orderData = order.representation
+        orderData["positions"] = order.positions.map { $0.representation }
+        usersRef.document(userId).collection("orders").addDocument(data: orderData) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+
+    func getOrdersForUser(userId: String, completion: @escaping (Result<[Order], Error>) -> Void) {
+        usersRef.document(userId).collection("orders").getDocuments { querySnapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let querySnapshot = querySnapshot else {
+                completion(.failure(NSError(domain: "No data", code: 404, userInfo: nil)))
+                return
+            }
+            let orders = querySnapshot.documents.compactMap { Order(doc: $0) }
+            completion(.success(orders))
+        }
+    }
+
     
 }
+
+

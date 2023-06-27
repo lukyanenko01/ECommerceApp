@@ -140,11 +140,11 @@ struct CartDetailPage: View {
 
 
 
-struct CartDetailPage_Previews: PreviewProvider {
-    static var previews: some View {
-        CartDetailPage()
-    }
-}
+//struct CartDetailPage_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CartDetailPage()
+//    }
+//}
 
 
 enum PaymentOption: String, CaseIterable {
@@ -175,106 +175,4 @@ struct RadioButtonGroup: View {
         }
     }
 }
-
-struct CustomTextField: View {
-    @Binding var text: String
-    var hint: String
-    var leadingIcon: Image
-    var isPhone: Bool = false
-    @State var isPasswordVisible: Bool = false // новое состояние
-    var isPassword: Bool = false
-    var keyboardType: UIKeyboardType = .default
-    var autocapitalization: UITextAutocapitalizationType = .sentences
-    
-    var body: some View {
-        HStack(spacing: -10) {
-            Button(action: {
-                // только для поля пароля
-                if isPassword {
-                    isPasswordVisible.toggle()
-                }
-            }) {
-                // Если это поле пароля и пароль виден, показать иконку 'lock.open'
-                // В противном случае показать переданную иконку
-                if isPassword && isPasswordVisible {
-                    Image(systemName: "lock.open")
-                        .font(.callout)
-                        .foregroundColor(.gray)
-                        .frame(width: 40, alignment: .leading)
-                } else {
-                    leadingIcon
-                        .font(.callout)
-                        .foregroundColor(.gray)
-                        .frame(width: 40, alignment: .leading)
-                }
-            }
-            
-            if isPhone {
-                iPhoneNumberField(hint, text: $text)
-                    .flagHidden(true)
-                    .prefixHidden(false)
-            } else if isPassword {
-                if isPasswordVisible {
-                    TextField(hint, text: $text)
-                        .keyboardType(keyboardType)
-                        .autocapitalization(autocapitalization)
-                } else {
-                    SecureField(hint, text: $text)
-                        .keyboardType(keyboardType)
-                        .autocapitalization(autocapitalization)
-                }
-            } else {
-                TextField(hint, text: $text)
-                    .keyboardType(keyboardType)
-                    .autocapitalization(autocapitalization)
-            }
-        }
-        .padding(.horizontal, 15)
-        .padding(.vertical, 15)
-        .background {
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Color.gray.opacity(0.1))
-        }
-    }
-}
-
-
-//struct CustomTextField: View {
-//    @Binding var text: String
-//    var hint: String
-//    var leadingIcon: Image
-//    var isPhone: Bool = false
-//    var isPassword: Bool = false
-//    var keyboardType: UIKeyboardType = .default
-//    var autocapitalization: UITextAutocapitalizationType = .sentences
-//
-//    var body: some View {
-//        HStack(spacing: -10) {
-//            leadingIcon
-//                .font(.callout)
-//                .foregroundColor(.gray)
-//                .frame(width: 40, alignment: .leading)
-//
-//            if isPhone {
-//                iPhoneNumberField(hint, text: $text)
-//                    .flagHidden(true)
-//                    .prefixHidden(false)
-//            }  else if isPassword {
-//                SecureField(hint, text: $text)
-//                    .keyboardType(keyboardType)
-//                    .autocapitalization(autocapitalization)
-//            } else {
-//                TextField(hint, text: $text)
-//                    .keyboardType(keyboardType)
-//                    .autocapitalization(autocapitalization)
-//            }
-//        }
-//        .padding(.horizontal, 15)
-//        .padding(.vertical, 15)
-//        .background {
-//            RoundedRectangle(cornerRadius: 12, style: .continuous)
-//                .fill(Color.gray.opacity(0.1))
-//        }
-//    }
-//}
 

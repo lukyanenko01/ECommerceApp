@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct Position {
+struct Position: Identifiable {
     var id: String
     var title: String
     var price: Int

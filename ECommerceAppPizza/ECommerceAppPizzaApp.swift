@@ -25,8 +25,6 @@ struct ECommerceAppPizzaApp: App {
                     .preferredColorScheme(.light)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                            // Обновите состояние после некоторого времени,
-                            // чтобы UnboardingView отобразился какое-то время перед переходом к MainPage
                             firstLaunch = false
                         }
                     }

@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct Order {
+struct Order: Identifiable {
     
     var id: String
     var userName: String
