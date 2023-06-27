@@ -14,8 +14,13 @@ struct SettingProfile: View {
     @State var email = "n/a"
     @State var phone = "n/a"
     @State var adress = "n/a"
+    @State var password: String = ""
+
     
     @State var isEditting = false
+    @State private var showingDeleteAccountConfirmationDialog = false
+    @State private var showingPasswordInputView = false
+
     
     var body: some View {
         
@@ -25,7 +30,6 @@ struct SettingProfile: View {
                 VStack {
                     VStack {
                         CustomTextFieldProfile(text: $name, hint: "Ім'я", isEditting: $isEditting)
-                        CustomTextFieldProfile(text: $email, hint: "Email", isEditting: $isEditting)
                         CustomTextFieldProfile(text: $phone, hint: "Телефон", isEditting: $isEditting)
                         CustomTextFieldProfile(text: $adress, hint: "Адреса доставки", isEditting: $isEditting)
                         
@@ -62,11 +66,13 @@ struct SettingProfile: View {
                     
                     
                 }
+                
             }
             Spacer()
             
             HStack {
                 Button {
+                    showingDeleteAccountConfirmationDialog = true
                 } label: {
                     Text("Видалити аккаунт")
                         .font(.custom(customFont, size: 18))
@@ -78,6 +84,7 @@ struct SettingProfile: View {
                 .background(Color.red)
                 .cornerRadius(7)
                 .padding(.horizontal)
+                
                 
                 Spacer()
                 
@@ -113,9 +120,47 @@ struct SettingProfile: View {
                 dismissButton: .default(Text("OK"))
             )
         }
-        .onAppear(perform: loadProfile)
+        .sheet(isPresented: $showingPasswordInputView) {
+            PasswordInputView(password: $password) {
+                self.reauthenticateAndDeleteUser()
+                showingPasswordInputView = false
+            }
+        }
+         .confirmationDialog("Ви впевнені, що хочете видалити свій аккаунт?", isPresented: $showingDeleteAccountConfirmationDialog, actions: {
+             Button("Видалити", role: .destructive) {
+                 showingPasswordInputView = true
+             }
+             Button("Скасувати", role: .cancel) { }
+         })
+         .onAppear(perform: loadProfile)
 
     }
+    
+    func reauthenticateAndDeleteUser() {
+        guard let email = AuthService.shared.currentUser?.email else { return }
+        
+        AuthService.shared.reauthenticateUser(email: email, password: password) { result in
+            switch result {
+            case .success:
+                deleteUser()
+            case .failure(let error):
+                print("Failed to reauthenticate user: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func deleteUser() {
+          AuthService.shared.deleteUser { result in
+              switch result {
+              case .success:
+                  print("User deleted successfully.")
+                  AppRouter.switchRootView(to: AuthView().preferredColorScheme(.light))
+              case .failure(let error):
+                  print("Failed to delete user: \(error.localizedDescription)")
+              }
+          }
+      }
+      
     
     func loadProfile() {
         AuthService.shared.dataBaseService.getProfile { result in
@@ -137,5 +182,22 @@ struct SettingProfile: View {
 struct SettingProfile_Previews: PreviewProvider {
     static var previews: some View {
         SettingProfile()
+    }
+}
+
+
+struct PasswordInputView: View {
+    @Binding var password: String
+    var onSubmit: () -> Void
+    
+    var body: some View {
+        VStack {
+            SecureField("Пароль", text: $password)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            Button("Подтвердить") {
+                onSubmit()
+            }
+        }
     }
 }

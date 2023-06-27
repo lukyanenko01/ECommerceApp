@@ -76,15 +76,6 @@ struct ProfilePage: View {
                                 
                             }
                         }
-                        
-                        CustomNavigationLink(title: "Зв'язатися з нами") {
-                            Text("")
-                                .navigationTitle("Адреса доставки")
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .background(Color("HomeBG").ignoresSafeArea())
-                                
-                        }
-                        
                         if AuthService.shared.currentUser != nil  {
                             CustomNavigationLink(title: "Історія замовлень") {
                                 HistoruOrders()
@@ -95,26 +86,17 @@ struct ProfilePage: View {
                             }
                         }
                         
-                        CustomNavigationLink(title: "Залишити відгук") {
-                            Text("")
-                                .navigationTitle("Налаштування профілю")
+                        CustomNavigationLink(title: "Зв'язатися з нами") {
+                            ContactsView()
+                                .navigationTitle("Зв'язатися з нами")
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .background(Color("HomeBG").ignoresSafeArea())
+                                
                         }
                         
-                        CustomNavigationLink(title: "Developer") {
-                            Text("")
-                                .navigationTitle("Налаштування профілю")
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .background(Color("HomeBG").ignoresSafeArea())
-                        }
-                        
-                        CustomNavigationLink(title: "Privacy Policy") {
-                            Text("")
-                                .navigationTitle("Налаштування профілю")
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .background(Color("HomeBG").ignoresSafeArea())
-                        }
+                        CustomButton(title: "Developer", url: URL(string: "https://www.linkedin.com/in/vladimir-lukyanenko-03054a199/")!)
+
+                        CustomButton(title: "Privacy Policy", url: URL(string: "https://pizza-website-vert.vercel.app/privacy")!)
                         
                     }
                     .padding(.horizontal, 22)
@@ -130,6 +112,33 @@ struct ProfilePage: View {
             
         }
     }
+    
+    @ViewBuilder
+    func CustomButton(title: String, url: URL) -> some View {
+        Button {
+            DispatchQueue.main.async {
+                UIApplication.shared.open(url)
+            }
+        } label: {
+            HStack {
+                Text(title)
+                    .font(.custom(customFont, size: 17))
+                    .fontWeight(.semibold)
+
+                Spacer()
+
+            }
+            .foregroundColor(.black)
+            .padding()
+            .background(
+                Color.white
+                    .cornerRadius(12)
+            )
+            .padding(.horizontal)
+            .padding(.top,10)
+        }
+    }
+
     
     @ViewBuilder
     func CustomNavigationLink<Detail: View>(title: String, @ViewBuilder content: @escaping () -> Detail) -> some View {
@@ -164,8 +173,8 @@ struct ProfilePage: View {
     
 }
 
-struct ProfilePage_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfilePage()
-    }
-}
+//struct ProfilePage_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfilePage()
+//    }
+//}

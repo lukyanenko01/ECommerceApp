@@ -36,7 +36,7 @@ struct LikedPage: View {
                     VStack {
                         
                         HStack {
-                            Text("Favorites")
+                            Text("Улюблене")
                                 .font(.custom(customFont, size: 28).bold())
                             
                             Spacer()

@@ -141,7 +141,7 @@ struct AuthView: View {
                     }
                 }
                 Button(action: {
-                    if let url = URL(string: "https://belok.ua") {
+                    if let url = URL(string: "https://pizza-website-vert.vercel.app/privacy") {
                         UIApplication.shared.open(url)
                     }
                 }) {

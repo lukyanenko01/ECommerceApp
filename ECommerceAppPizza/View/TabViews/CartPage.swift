@@ -23,7 +23,7 @@ struct CartPage: View {
                     VStack {
                         
                         HStack {
-                            Text("Basket")
+                            Text("Корзина")
                                 .font(.custom(customFont, size: 28).bold())
                             
                             Spacer()
@@ -46,7 +46,7 @@ struct CartPage: View {
                         // Cheking if liked products are empty
                         if sharedData.cartProducts.isEmpty {
                             Group {
-                                Image("noLike")
+                                Image("noCart")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .padding()

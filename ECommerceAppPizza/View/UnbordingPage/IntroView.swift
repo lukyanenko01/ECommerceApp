@@ -40,11 +40,11 @@ struct IntroView<ActionView: View>: View {
             VStack(alignment: .leading, spacing: 10) {
                 Spacer(minLength: 0)
                 Text(intro.title)
-                    .font(.system(size: 40))
+                    .font(.custom(customFont, size: 40).bold())
                     .fontWeight(.black)
                 
                 Text(intro.subTitle)
-                    .font(.caption)
+                    .font(.custom(customFont, size: 20))
                     .foregroundColor(.gray)
                     .padding(.top, 15)
                 
@@ -61,7 +61,7 @@ struct IntroView<ActionView: View>: View {
                             changeIntro()
                         } label: {
                             Text("Next")
-                                .fontWeight(.semibold)
+                                .font(.custom(customFont, size: 18))
                                 .foregroundColor(.white)
                                 .frame(width: size.width * 0.4)
                                 .padding(.vertical, 15)
@@ -94,8 +94,8 @@ struct IntroView<ActionView: View>: View {
                     changeIntro(true)
                 } label: {
                     Image(systemName: "chevron.left")
-                        .font(.title2.bold())
-                        ///.fontWeight(.semibold)
+//                        .font(.title2.bold())
+                        .font(.custom(customFont, size: 20).bold())
                         .foregroundColor(.black)
                         .contentShape(Rectangle())
                 }
@@ -145,7 +145,7 @@ struct IntroView<ActionView: View>: View {
 
 
 var pageIntros: [PageIntro] = [
-    .init(introAssetImage: "unboarding1", title: "ПіцаАЄПіцаАЄПіцаАЄПіцаАЄ", subTitle: "ПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄ"),
-    .init(introAssetImage: "unboarding2", title: "ПіцаАЄПіцаАЄПіцаАЄПіцаАЄ", subTitle: "ПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄ"),
-    .init(introAssetImage: "unboarding3", title: "ПіцаАЄПіцаАЄПіцаАЄПіцаАЄ", subTitle: "ПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄПіцаАЄ", displaysAction: true)
+    .init(introAssetImage: "unboarding1", title: "Найсмачніша піцца з ароматом щастя та любові!", subTitle: "Піца з справжніх якісних, італійських продуктів"),
+    .init(introAssetImage: "unboarding2", title: "Великий асортимент", subTitle: "Більше 20 видів піц, які хочеться з'їсти від скоринки до скоринки, нагетси та соуси власної роботи!"),
+    .init(introAssetImage: "unboarding3", title: "Швидка доставка", subTitle: "Замовляйте онлайн та отримуйте найсмачнішу піцу протягом 15 хвилин", displaysAction: true)
 ]

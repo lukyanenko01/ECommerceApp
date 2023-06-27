@@ -24,6 +24,18 @@ class AuthService {
     
     var currentUserEmail: String?
     
+    func reauthenticateUser(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+        
+        Auth.auth().currentUser?.reauthenticate(with: credential, completion: { (result, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        })
+    }
+    
     func updateProfile(name: String, email: String, phone: String, adress: String, completion: @escaping (Result<User, Error>) -> Void) {
         
         guard let currentUser = self.currentUser else { return }
