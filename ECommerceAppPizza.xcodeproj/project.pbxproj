@@ -172,6 +172,16 @@
 			path = NetworkService;
 			sourceTree = "<group>";
 		};
+		F22D48D72A4B5C8100C2463A /* ProfileSection */ = {
+			isa = PBXGroup;
+			children = (
+				F2B806F42A445BD30001A68D /* SettingProfile.swift */,
+				F22D48D52A4B3FE800C2463A /* ContactsView.swift */,
+				F22D48D32A4B397600C2463A /* HistoruOrders.swift */,
+			);
+			path = ProfileSection;
+			sourceTree = "<group>";
+		};
 		F26DE5D52A41F7560060A80E /* UnbordingPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,13 +294,11 @@
 				F29C72CC2A2E52A300685D27 /* MainPage.swift */,
 				F26DE5D52A41F7560060A80E /* UnbordingPage */,
 				F2D2C3AB2A2F854B00870BDB /* TabViews */,
-				F2B806F42A445BD30001A68D /* SettingProfile.swift */,
-				F22D48D52A4B3FE800C2463A /* ContactsView.swift */,
-				F22D48D32A4B397600C2463A /* HistoruOrders.swift */,
 				F27496692A375CEF00C87793 /* CartDetailPage.swift */,
 				F2D2C3BC2A2F9D8900870BDB /* MoreProductsView.swift */,
 				F2D2C3BE2A2FAC3C00870BDB /* SearchView.swift */,
 				F2A729FE2A3024A1001F59A8 /* ProductDetailView.swift */,
+				F22D48D72A4B5C8100C2463A /* ProfileSection */,
 				F2A0D6892A455AEC00DBAD21 /* SearchLocation */,
 				F27496662A37511C00C87793 /* CustomView */,
 			);

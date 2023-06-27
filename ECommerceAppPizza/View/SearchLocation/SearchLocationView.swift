@@ -26,7 +26,7 @@ struct SearchLocationView: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.gray)
                 
-                TextField("Find Location here", text: $locationManager.searchText)
+                TextField("Знайти адресу", text: $locationManager.searchText)
             }
             .padding(.vertical,12)
             .padding(.horizontal)
@@ -76,27 +76,27 @@ struct SearchLocationView: View {
                 
             } else {
                 //MARK: Live Location Button
-                Button {
-                    // setting map region
-                    if let coordinate = locationManager.userLocation?.coordinate {
-                        locationManager.mapView.region = .init(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
-                        locationManager.addDraggablePin(coordinate: coordinate)
-                        locationManager.updatePlacemark(location: .init(latitude: coordinate.latitude, longitude: coordinate.longitude))
-                    }
-                    
-                    // Navigation to MapView
-                    navigationTag = "MAPVIEW"
-                    isShowingMapViewSelection = true
-                } label: {
-                    Label {
-                        Text("Use Current Location")
-                            .font(.callout)
-                    } icon: {
-                        Image(systemName: "location.north.circle.fill")
-                    }
-                    .foregroundColor(.green)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
+//                Button {
+//                    // setting map region
+//                    if let coordinate = locationManager.userLocation?.coordinate {
+//                        locationManager.mapView.region = .init(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
+//                        locationManager.addDraggablePin(coordinate: coordinate)
+//                        locationManager.updatePlacemark(location: .init(latitude: coordinate.latitude, longitude: coordinate.longitude))
+//                    }
+//
+//                    // Navigation to MapView
+//                    navigationTag = "MAPVIEW"
+//                    isShowingMapViewSelection = true
+//                } label: {
+//                    Label {
+//                        Text("Use Current Location")
+//                            .font(.callout)
+//                    } icon: {
+//                        Image(systemName: "location.north.circle.fill")
+//                    }
+//                    .foregroundColor(.green)
+//                }
+//                .frame(maxWidth: .infinity, alignment: .leading)
 
             }
         }

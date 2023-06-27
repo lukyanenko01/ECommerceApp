@@ -24,6 +24,10 @@ class AuthService {
     
     var currentUserEmail: String?
     
+    var isLoggedIn: Bool {
+        return currentUser != nil
+    }
+    
     func reauthenticateUser(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let credential = EmailAuthProvider.credential(withEmail: email, password: password)
         

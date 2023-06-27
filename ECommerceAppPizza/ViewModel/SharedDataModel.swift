@@ -89,7 +89,7 @@ class SharedDataModel: ObservableObject {
     }
 
     
-    func confirmOrder(name: String, location: String, phone: String, delivery: Int, selectedPaymentOption: PaymentOption?, completion: @escaping (Result<Void, Error>) -> Void) {
+    func confirmOrder(name: String, location: String, phone: String, delivery: Int, selectedPaymentOption: PaymentOption?, comment: String, completion: @escaping (Result<Void, Error>) -> Void) {
         let positions = self.cartProducts.map {
             var price = 0
             switch $0.size {
@@ -113,7 +113,8 @@ class SharedDataModel: ObservableObject {
                            number: phone,
                            cost: getTotalPrice(),
                            delivery: delivery == 0 ? "З собою" : "Доставка",
-                           pay: selectedPaymentOption?.rawValue ?? "")
+                           pay: selectedPaymentOption?.rawValue ?? "",
+                           comment: comment)
 
          dataBaseService.saveOrder(order: order) { result in
              switch result {

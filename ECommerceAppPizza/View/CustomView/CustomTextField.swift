@@ -67,3 +67,27 @@ struct CustomTextField: View {
         }
     }
 }
+
+
+struct CustomCommentField: View {
+    @Binding var text: String
+    var keyboardType: UIKeyboardType = .default
+    var autocapitalization: UITextAutocapitalizationType = .sentences
+    
+    var body: some View {
+        HStack(spacing: -10) {
+            
+            TextEditor(text: $text)
+                .keyboardType(keyboardType)
+                .autocapitalization(autocapitalization)
+                .fixedSize(horizontal: false, vertical: true)
+
+        }
+        .padding(.horizontal, 15)
+        .padding(.vertical, 15)
+        .background {
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Color.gray.opacity(0.1))
+        }
+    }
+}

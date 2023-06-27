@@ -18,9 +18,10 @@ struct Order: Identifiable {
     var status: String
     var number: String
     var cost: String
-    
     var delivery: String
     var pay: String
+    var comment: String
+
         
     var representation: [String: Any] {
         var repres = [String: Any]()
@@ -33,6 +34,7 @@ struct Order: Identifiable {
         repres["cost"] = cost
         repres["delivery"] = delivery
         repres["pay"] = pay
+        repres["comment"] = comment
         repres["positions"] = positions.map { $0.representation }
         return repres
     }
@@ -46,7 +48,7 @@ struct Order: Identifiable {
          number: String,
          cost: String,
          delivery: String,
-         pay: String) {
+         pay: String, comment: String) {
         
         self.id = id
         self.userName = userName
@@ -58,6 +60,8 @@ struct Order: Identifiable {
         self.cost = cost
         self.delivery = delivery
         self.pay = pay
+        self.comment = comment
+
     }
     
     init?(doc: QueryDocumentSnapshot) {
@@ -73,6 +77,7 @@ struct Order: Identifiable {
         guard let cost = data["cost"] as? String else { return nil }
         guard let delivery = data["delivery"] as? String else { return nil }
         guard let pay = data["pay"] as? String else { return nil }
+        guard let comment = data["comment"] as? String else { return nil }
         guard let positionsData = data["positions"] as? [[String: Any]] else { return nil }
 
         self.id = id
@@ -84,6 +89,7 @@ struct Order: Identifiable {
         self.cost = cost
         self.delivery = delivery
         self.pay = pay
+        self.comment = comment
         self.positions = positionsData.compactMap { Position(data: $0) }
 
     }

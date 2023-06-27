@@ -12,14 +12,19 @@ struct CartDetailPage: View {
     
     @EnvironmentObject var sharedDataModel: SharedDataModel
     
-    @State var selectedPaymentOption: PaymentOption?
+    @State var selectedPaymentOption: PaymentOption? = .cash
     @State var delivery = 0
     
     @State private var name = ""
     @State private var phone = ""
     @State private var location = ""
+    @State private var comment = ""
+
+    @State private var alertMessage = ""
+    @State private var alertTitle = ""
     
-    @State private var showingAlert = false
+    @State private var showingSuccessAlert = false
+    @State private var showingErrorAlert = false
     @State var isShowingLocationSearch: Bool = false
 
     
@@ -38,6 +43,7 @@ struct CartDetailPage: View {
                                 .font(.custom(customFont, size: 18))
                                 .foregroundColor(.gray)
                                 .padding(.top)
+                                .fixedSize(horizontal: false, vertical: true)
                         }
                         
                         CustomSegmentedControl(selectedSegment: $delivery, segments: ["З собою", "Доставка"])
@@ -74,6 +80,23 @@ struct CartDetailPage: View {
                             }
                         }
                     }
+                    VStack {
+                        Text("Коментар до замовлення")
+                            .font(.custom(customFont, size: 20).bold())
+                        
+                        VStack() {
+                            TextEditor(text: $comment)
+                                .frame(minHeight: 40)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .padding(.horizontal, 15)
+                        .padding(.vertical, 15)
+                        .background {
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .fill(Color.gray.opacity(0.1))
+                        }
+                    }
+
                 }
                 .padding([.horizontal, .bottom], 20)
                 .padding(.top,25)
@@ -96,15 +119,25 @@ struct CartDetailPage: View {
                 
                 
                 Button {
-                    sharedDataModel.confirmOrder(name: name, location: location, phone: phone, delivery: delivery, selectedPaymentOption: selectedPaymentOption) { result in
-                        switch result {
-                        case .success(_):
-                            print("Order successfully saved.")
-                            showingAlert = true  // Показать предупреждение
-                        case .failure(let error):
-                            print("Failed to save order: \(error)")
-                            showingAlert = true  // Показать предупреждение с ошибкой
+                    if fieldsAreValid() {
+                        sharedDataModel.confirmOrder(name: name, location: location, phone: phone, delivery: delivery, selectedPaymentOption: selectedPaymentOption, comment: comment) { result in
+                            switch result {
+                            case .success(_):
+                                print("Order successfully saved.")
+                                alertTitle = "Замовлення"
+                                alertMessage = "Ваше замовлення прийнято!"
+                                showingSuccessAlert = true
+                            case .failure(let error):
+                                print("Failed to save order: \(error)")
+                                alertTitle = "Помилка замовлення"
+                                alertMessage = "Виникла проблема при надсиланні вашого замовлення. Будь ласка, спробуйте ще раз пізніше."
+                                showingErrorAlert = true
+                            }
                         }
+                    } else {
+                        alertTitle = "Помилка введення"
+                        alertMessage = "Будь ласка, заповніть всі поля!"
+                        showingErrorAlert = true
                     }
                 } label: {
                     Text("Підтвердити")
@@ -121,21 +154,56 @@ struct CartDetailPage: View {
             }
             .padding(.horizontal,25)
         }
+        .dismissKeyboardOnTap()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             Color("HomeBG")
                 .ignoresSafeArea()
         )
-        .alert(isPresented: $showingAlert) {
+        .alert(isPresented: $showingSuccessAlert) {
             Alert(
                 title: Text("Замовлення"),
                 message: Text("Ваше замовлення прийнято!"),
                 dismissButton: .default(Text("ОК"))
             )
         }
-        
-        
+        .alert(isPresented: $showingErrorAlert) {
+            Alert(
+                title: Text(alertTitle),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("ОК"))
+            )
+        }
+        .onAppear(perform: loadProfile)
+
     }
+    
+    func fieldsAreValid() -> Bool {
+        if name.isEmpty || phone.isEmpty || (delivery == 1 && location.isEmpty) {
+            alertMessage = "Будь ласка, заповніть всі поля!"
+            alertTitle = "Помилка введення"
+            showingErrorAlert = true
+            return false
+        }
+        return true
+    }
+    
+    
+    func loadProfile() {
+        // Проверяем, залогинен ли пользователь
+        if AuthService.shared.isLoggedIn {
+            AuthService.shared.dataBaseService.getProfile { result in
+                switch result {
+                case .success(let profile):
+                    self.name = profile.name
+                    self.phone = profile.phone
+                case .failure(let error):
+                    print("Failed to load profile: \(error)")
+                }
+            }
+        }
+    }
+
 }
 
 
@@ -148,8 +216,8 @@ struct CartDetailPage: View {
 
 
 enum PaymentOption: String, CaseIterable {
-    case pickup = "Картою при отримані"
-    case delivery = "Готівкою"
+    case card = "Картою при отримані"
+    case cash = "Готівкою"
 }
 
 struct RadioButtonGroup: View {
@@ -176,3 +244,25 @@ struct RadioButtonGroup: View {
     }
 }
 
+
+struct DismissKeyboard: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .onTapGesture {
+                let keyWindow = UIApplication.shared.connectedScenes
+                    .filter({$0.activationState == .foregroundActive})
+                    .map({$0 as? UIWindowScene})
+                    .compactMap({$0})
+                    .first?.windows
+                    .filter({$0.isKeyWindow}).first
+                
+                keyWindow?.endEditing(true)
+            }
+    }
+}
+
+extension View {
+    func dismissKeyboardOnTap() -> some View {
+        self.modifier(DismissKeyboard())
+    }
+}
