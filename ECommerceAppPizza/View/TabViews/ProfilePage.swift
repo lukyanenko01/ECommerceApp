@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct ProfilePage: View {
+    
+    @State var name = "Тут буде ваше ім'я"
+    @State var adress = "Тут буде ваша адреса"
+
+    
     var body: some View {
         NavigationView {
             
@@ -44,7 +49,7 @@ struct ProfilePage: View {
                                     .padding(.horizontal,25)
                                 }
                             } else {
-                                Text("Rosiana Doe")
+                                Text(name)
                                     .font(.custom(customFont, size: 16))
                                     .fontWeight(.semibold)
                                     .padding(.top,15)
@@ -52,7 +57,7 @@ struct ProfilePage: View {
                                     Image(systemName: "location.north.circle.fill")
                                         .foregroundColor(.gray)
                                         .rotationEffect(.init(degrees: 180))
-                                    Text("адресса доставки: вул. Перемоги України 129")
+                                    Text(adress)
                                         .font(.custom(customFont, size: 15))
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -109,7 +114,21 @@ struct ProfilePage: View {
                 Color("HomeBG")
                     .ignoresSafeArea()
             )
+            .onAppear(perform: loadProfile)
+
             
+        }
+    }
+    
+    func loadProfile() {
+        AuthService.shared.dataBaseService.getProfile { result in
+            switch result {
+            case .success(let profile):
+                self.name = profile.name
+                self.adress = profile.adress
+            case .failure(let error):
+                print("Failed to load profile: \(error)")
+            }
         }
     }
     

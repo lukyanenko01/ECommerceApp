@@ -133,6 +133,7 @@ struct SettingProfile: View {
              Button("Скасувати", role: .cancel) { }
          })
          .onAppear(perform: loadProfile)
+         .dismissKeyboardOnTap()
 
     }
     

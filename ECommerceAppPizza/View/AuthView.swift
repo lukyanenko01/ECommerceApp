@@ -156,7 +156,7 @@ struct AuthView: View {
             }
             .padding(.top, 25)
         }
-                
+        .dismissKeyboardOnTap()
         .padding(15)
         .alert(alertMessage, isPresented: $isShowAlert) {
             Button { } label: {
