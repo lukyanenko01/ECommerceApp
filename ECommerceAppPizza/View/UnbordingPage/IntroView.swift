@@ -9,14 +9,17 @@ import SwiftUI
 
 struct IntroView<ActionView: View>: View {
     @Binding var intro: PageIntro
+    @Binding var currentIndex: Int
+
     var size: CGSize
     var actionView: ActionView
 
-    init(intro: Binding<PageIntro>, size: CGSize, @ViewBuilder actionView: @escaping () -> ActionView) {
-        self._intro = intro
-        self.size = size
-        self.actionView = actionView()
-    }
+    init(intro: Binding<PageIntro>, currentIndex: Binding<Int>, size: CGSize, @ViewBuilder actionView: @escaping () -> ActionView) {
+         self._intro = intro
+         self._currentIndex = currentIndex
+         self.size = size
+         self.actionView = actionView()
+     }
     
     /// Animation Properties
     @State private var showView: Bool = false
@@ -121,8 +124,10 @@ struct IntroView<ActionView: View>: View {
             ///Updating Page
             if let index = pageIntros.firstIndex(of: intro), (isPrevious ? index != 0 : index != pageIntros.count - 1) {
                 intro = isPrevious ? pageIntros[index - 1] : pageIntros[index + 1]
+                currentIndex = isPrevious ? index - 1 : index + 1
             } else {
                 intro = isPrevious ? pageIntros[0] : pageIntros[pageIntros.count - 1]
+                currentIndex = isPrevious ? 0 : pageIntros.count - 1
             }
             /// Re-Animation as Split Page
             hideWholeView = false

@@ -121,16 +121,21 @@ struct ProfilePage: View {
     }
     
     func loadProfile() {
-        AuthService.shared.dataBaseService.getProfile { result in
-            switch result {
-            case .success(let profile):
-                self.name = profile.name
-                self.adress = profile.adress
-            case .failure(let error):
-                print("Failed to load profile: \(error)")
+        if AuthService.shared.currentUser != nil {
+            AuthService.shared.dataBaseService.getProfile { result in
+                switch result {
+                case .success(let profile):
+                    self.name = profile.name.isEmpty ? "Тут буде ваше ім'я" : profile.name
+                    self.adress = profile.adress.isEmpty ? "Тут буде ваша адреса" : profile.adress
+                case .failure(let error):
+                    print("Failed to load profile: \(error)")
+                }
             }
         }
     }
+
+
+
     
     @ViewBuilder
     func CustomButton(title: String, url: URL) -> some View {

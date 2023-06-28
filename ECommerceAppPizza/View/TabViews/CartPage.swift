@@ -161,7 +161,8 @@ struct CardView: View {
     
     // Making Product as Binding so as update in Real time...
     @Binding var product: Products
-    
+    @EnvironmentObject var sharedData: SharedDataModel
+
     var body: some View {
         HStack(spacing: 15) {
             if let url = URL(string: product.productImage) {
@@ -195,7 +196,12 @@ struct CardView: View {
                         .foregroundColor(.gray)
                     
                     Button {
-                        product.quantity = (product.quantity > 0 ? (product.quantity - 1) : 0)
+//                        product.quantity = (product.quantity > 0 ? (product.quantity - 1) : 0)
+                        if product.quantity > 1 {
+                            product.quantity -= 1
+                        } else {
+                            deleteProduct(product: product)
+                        }
                     } label: {
                         Image(systemName: "minus")
                             .font(.caption)
@@ -235,6 +241,18 @@ struct CardView: View {
         
         )
     }
+    
+    func deleteProduct(product: Products) {
+        if let index = sharedData.cartProducts.firstIndex(where: { currentProduct in
+            return product.id == currentProduct.id
+        }) {
+            let _ = withAnimation {
+                // removing...
+                sharedData.cartProducts.remove(at: index)
+            }
+        }
+    }
+
     
 }
 

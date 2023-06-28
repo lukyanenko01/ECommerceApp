@@ -21,13 +21,10 @@ struct ECommerceAppPizzaApp: App {
     var body: some Scene {
         WindowGroup {
             if firstLaunch {
-                UnboardingView()
-                    .preferredColorScheme(.light)
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                            firstLaunch = false
-                        }
-                    }
+                UnboardingView {
+                    firstLaunch = false
+                }
+                .preferredColorScheme(.light)
             } else {
                 MainPage()
                     .preferredColorScheme(.light)
@@ -35,6 +32,8 @@ struct ECommerceAppPizzaApp: App {
         }
     }
 }
+
+
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,

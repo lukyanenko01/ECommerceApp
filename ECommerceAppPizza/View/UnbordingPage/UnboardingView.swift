@@ -10,17 +10,24 @@ import SwiftUI
 struct UnboardingView: View {
     
     @State private var activeIntro: PageIntro = pageIntros[0]
+    @State private var currentIndex: Int = 0
+    let onComplete: () -> Void
+
     
     var body: some View {
         GeometryReader {
             let size = $0.size
             
-            IntroView(intro: $activeIntro, size: size) {
+            IntroView(intro: $activeIntro, currentIndex: $currentIndex, size: size) {
                 VStack(spacing: 10) {
                                 
                     Button {
-                        AppRouter.switchRootView(to: MainPage().preferredColorScheme(.light))
-
+                        if currentIndex == pageIntros.count - 1 {
+                            onComplete()
+                        } else {
+                            currentIndex += 1
+                            activeIntro = pageIntros[currentIndex]
+                        }
                     } label: {
                         Text("Далі" )
                             .fontWeight(.semibold)
@@ -33,13 +40,34 @@ struct UnboardingView: View {
 
                             }
                     }
+                    
+                    Button {
+                        if currentIndex == pageIntros.count - 1 {
+                            AppRouter.switchRootView(to: AuthView().preferredColorScheme(.light))
+                            onComplete()
+                        } else {
+                            currentIndex += 1
+                            activeIntro = pageIntros[currentIndex]
+                        }
+                    } label: {
+                        Text("Реєстрація" )
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .padding(.vertical, 15)
+                            .frame(maxWidth: .infinity)
+                            .background {
+                                Capsule()
+                                    .fill(Color("ColorBT"))
+
+                            }
+                    }
                                         
                     Button {
-                        if let url = URL(string: "https://belok.ua") {
+                        if let url = URL(string: "https://pizza-website-vert.vercel.app/privacy") {
                             UIApplication.shared.open(url)
                         }
                     } label: {
-                        Text("Política de privacidad")
+                        Text("Privacy Policy")
                             .fontWeight(.semibold)
                             .underline()
                             .foregroundColor(.blue)

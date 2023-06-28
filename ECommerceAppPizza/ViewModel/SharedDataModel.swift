@@ -64,29 +64,33 @@ class SharedDataModel: ObservableObject {
         var total: Double = 0.0
         
         for product in cartProducts {
-            var productTotal = product.priceS * product.quantity
-            if product.size == "M" {
-                productTotal = product.priceM * product.quantity
-            } else if product.size == "XL" {
-                productTotal = product.priceXl * product.quantity
+            var productTotal: Double = 0.0
+            if product.size == "S" {
+                productTotal = Double(product.priceS) * Double(product.quantity)
+            } else if product.size == "M" {
+                productTotal = Double(product.priceM) * Double(product.quantity)
+            } else if product.size == "Xl" {
+                productTotal = Double(product.priceXl) * Double(product.quantity)
             }
-            
+
             // добавить стоимость сырного борта, если есть
             if product.cheeseCrust {
                 if product.size == "S" {
-                    productTotal += product.cheeseS * product.quantity
+                    productTotal += Double(product.cheeseS) * Double(product.quantity)
                 } else if product.size == "M" {
-                    productTotal += product.cheeseM * product.quantity
-                } else if product.size == "XL" {
-                    productTotal += product.cheeseXl * product.quantity
+                    productTotal += Double(product.cheeseM) * Double(product.quantity)
+                } else if product.size == "Xl" {
+                    productTotal += Double(product.cheeseXl) * Double(product.quantity)
                 }
             }
             
-            total += Double(productTotal)
+            total += productTotal
         }
 
         return String(format: "%.2f", total)
     }
+
+
 
     
     func confirmOrder(name: String, location: String, phone: String, delivery: Int, selectedPaymentOption: PaymentOption?, comment: String, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -126,7 +130,7 @@ class SharedDataModel: ObservableObject {
              }
          }
         
-        guard let user = AuthService.shared.currentUser else {
+        guard AuthService.shared.currentUser != nil else {
             print("No user is signed in.")
             return
         }
