@@ -253,7 +253,7 @@ struct Home: View {
             }
         } label: {
             
-            Text(type.rawValue)
+            Text(type.name)
                 .font(.custom(customFont, size: 15))
                 .fontWeight(.semibold)
             // Changing Color based on Current product Type...

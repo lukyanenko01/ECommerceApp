@@ -9,15 +9,20 @@ import SwiftUI
 import Firebase
 
 enum ProductType: String, CaseIterable {
-    case pizza = "Піца"
-    case sous = "Соуси"
-    case other = "Інше"
+    case pizza = "pizza"
+    case sous = "sous"
+    case other = "other"
     
-//    var name: String {
-//        switch {
-//            ca
-//        }
-//    }
+    var name: String {
+        switch self {
+        case .pizza:
+            return "Піца"
+        case .sous:
+            return "Cоуси"
+        case .other:
+            return "Інше"
+        }
+    }
     
 }
 
