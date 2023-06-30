@@ -15,7 +15,7 @@ import Combine
 
  class HomeViewModel: ObservableObject {
      
-     @Published var productType: ProductType = .Pizza
+     @Published var productType: ProductType = .pizza
      @Published var product: [Products] = []
      @Published var filteredProducts: [Products] = []
      @Published var showMoreProductsOnType: Bool = false
@@ -38,7 +38,7 @@ import Combine
                  self.product = products.map {
                      Products(id: $0.id,
                               title: $0.title,
-                              type: (ProductType(rawValue: $0.type) ?? .Pizza).rawValue,
+                              type: (ProductType(rawValue: $0.type) ?? .pizza).rawValue,
                               productImage: $0.productImage,
                               priceS: $0.priceS,
                               priceM: $0.priceM,

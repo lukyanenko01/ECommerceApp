@@ -53,14 +53,17 @@ class LocationManager: NSObject, ObservableObject, MKMapViewDelegate, CLLocation
     }
     
     func fetchPlaces(value: String) {
-            // MARK: Fetching places using MKLocalSearch & Asyc/Await
+        // MARK: Fetching places using MKLocalSearch & Asyc/Await
         Task {
             do {
                 let request = MKLocalSearch.Request()
-                request.naturalLanguageQuery = value.lowercased()
+
+                // Add city name to the user's query
+                let cityName = ", Запорожье"
+                request.naturalLanguageQuery = (value.lowercased() + cityName)
                 
                 let response = try await MKLocalSearch(request: request).start()
-                // We can also Use Mainactor To  publish changes in Main Thread
+                
                 await MainActor.run(body: {
                     self.fetchedPlaces = response.mapItems.compactMap({ item -> CLPlacemark? in
                         return item.placemark
@@ -70,9 +73,10 @@ class LocationManager: NSObject, ObservableObject, MKMapViewDelegate, CLLocation
             catch {
                 // HANDLE ERROR
             }
-
         }
     }
+
+
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         // HANDLE ERROR

@@ -150,7 +150,7 @@ struct IntroView<ActionView: View>: View {
 
 
 var pageIntros: [PageIntro] = [
-    .init(introAssetImage: "unboarding1", title: "Найсмачніша піцца з ароматом щастя та любові!", subTitle: "Піца з справжніх якісних, італійських продуктів"),
+    .init(introAssetImage: "unboarding1", title: "Найсмачніша піца з ароматом щастя та любові!", subTitle: "Піца з справжніх якісних, італійських продуктів"),
     .init(introAssetImage: "unboarding2", title: "Великий асортимент", subTitle: "Більше 20 видів піц, які хочеться з'їсти від скоринки до скоринки, нагетси та соуси власної роботи!"),
     .init(introAssetImage: "unboarding3", title: "Швидка доставка", subTitle: "Замовляйте онлайн та отримуйте найсмачнішу піцу протягом 15 хвилин", displaysAction: true)
 ]

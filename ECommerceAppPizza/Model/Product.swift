@@ -9,10 +9,15 @@ import SwiftUI
 import Firebase
 
 enum ProductType: String, CaseIterable {
-case Pizza = "Піца"
-case Sous = "Соуси"
-case Other = "Інше"
-//case Tablets = "Tablets"
+    case pizza = "Піца"
+    case sous = "Соуси"
+    case other = "Інше"
+    
+//    var name: String {
+//        switch {
+//            ca
+//        }
+//    }
     
 }
 
@@ -35,26 +40,25 @@ struct Products: Identifiable, Hashable {
 
     var representation: [String: Any] {
         var repres = [String: Any]()
-        repres["id"] = self.id
-        repres["type"] = self.type
-        repres["title"] = self.title
-        repres["priceS"] = self.priceS
-        repres["priceM"] = self.priceM
-        repres["priceXl"] = self.priceXl
-        repres["description"] = self.description
-        repres["productImage"] = self.productImage
-        repres["size"] = self.size
-        repres["quantity"] = self.quantity
-        repres["cheeseS"] = self.cheeseS
-        repres["cheeseM"] = self.cheeseM
-        repres["cheeseXl"] = self.cheeseXl
-        repres["cheeseCrust"] = self.cheeseCrust
-
+        repres["id"] = id
+        repres["type"] = type
+        repres["title"] = title
+        repres["priceS"] = priceS
+        repres["priceM"] = priceM
+        repres["priceXl"] = priceXl
+        repres["description"] = description
+        repres["productImage"] = productImage
+        repres["size"] = size
+        repres["quantity"] = quantity
+        repres["cheeseS"] = cheeseS
+        repres["cheeseM"] = cheeseM
+        repres["cheeseXl"] = cheeseXl
+        repres["cheeseCrust"] = cheeseCrust
 
         return repres
     }
     
-    internal init(id: String = UUID().uuidString,
+    init(id: String = UUID().uuidString,
                   title: String,
                   type: ProductType.RawValue,
                   productImage: String = "",

@@ -75,9 +75,9 @@ struct CartDetailPage: View {
                             }) {
                                 CustomTextField(text: $location, hint: "Адреса доставки", leadingIcon: Image(systemName: "location"))
                             }
-                            .sheet(isPresented: $isShowingLocationSearch) {
-                                SearchLocationView(location: $location, isShowing: $isShowingLocationSearch)
-                            }
+//                            .sheet(isPresented: $isShowingLocationSearch) {
+//                                SearchLocationView(location: $location, isShowing: $isShowingLocationSearch)
+//                            }
                         }
                     }
                     VStack {
