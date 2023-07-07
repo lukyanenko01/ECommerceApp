@@ -46,7 +46,7 @@ struct CartPage: View {
                         // Cheking if liked products are empty
                         if sharedData.cartProducts.isEmpty {
                             Group {
-                                Image("noCart")
+                                Image(ImageGallery.noCart)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .padding()

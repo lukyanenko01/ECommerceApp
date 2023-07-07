@@ -92,16 +92,8 @@ struct MainPage: View {
             dataService.getProducts { result in
                 switch result {
                 case .success(let products):
-                    for product in products {
-                        print("Product title: \(product.title)")
-                        print("Product type: \(product.type)")
-                        print("Product price S: \(product.priceS)")
-                        print("Product price M: \(product.priceM)")
-                        print("Product price XL: \(product.priceXl)")
-                        print("Product description: \(product.description)")
-                        print("Product image: \(product.productImage)")
-                        print("Product quantity: \(product.quantity)")
-                        print("-----------------------")
+                    for _ in products {
+                        
                     }
                 case .failure(let error):
                     print("Failed to get products: \(error)")
@@ -122,7 +114,6 @@ struct ContentView_Previews: PreviewProvider {
 // Tab Cases...
 enum Tab: String, CaseIterable {
     
-    // Raw Value must be image Name in asset or systemnaym
     case Home = "house.fill"
     case Liked = "heart.fill"
     case Profile = "person.fill"

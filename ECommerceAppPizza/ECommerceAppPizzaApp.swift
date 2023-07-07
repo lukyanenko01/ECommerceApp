@@ -21,7 +21,7 @@ struct ECommerceAppPizzaApp: App {
     var body: some Scene {
         WindowGroup {
             if firstLaunch {
-                UnboardingView {
+                OnboardingView {
                     firstLaunch = false
                 }
                 .preferredColorScheme(.light)

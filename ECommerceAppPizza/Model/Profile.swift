@@ -17,20 +17,17 @@ struct Profile: Identifiable {
 
     
     var representation: [String: Any] {
-        var repres = [String: Any]()
         
-        repres["id"] = self.id
-        repres["name"] = self.name
-        repres["email"] = self.email
-        repres["phone"] = self.phone
-        repres["adress"] = self.adress
-
-
-
+        var repres = [String: Any]()
+        repres["id"] = id
+        repres["name"] = name
+        repres["email"] = email
+        repres["phone"] = phone
+        repres["adress"] = adress
         return repres
     }
     
-    internal init(id: String,
+    init(id: String,
                   name: String,
                   email: String,
                   phone: String,

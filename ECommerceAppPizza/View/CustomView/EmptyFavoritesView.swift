@@ -13,7 +13,7 @@ struct EmptyFavoritesView: View {
     
     var body: some View {
         Group {
-            Image("noLike")
+            Image(ImageGallery.noLike)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .padding()

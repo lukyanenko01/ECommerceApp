@@ -1,5 +1,5 @@
 //
-//  UnboardingView.swift
+//  OnboardingView.swift
 //  ECommerceAppPizza
 //
 //  Created by Vladimir Lukyanenko on 20.06.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UnboardingView: View {
+struct OnboardingView: View {
     
     @State private var activeIntro: PageIntro = pageIntros[0]
     @State private var currentIndex: Int = 0
@@ -87,3 +87,8 @@ struct UnboardingView: View {
 
 
 
+//struct Onboarding_Previews: PreviewProvider {
+//    static var previews: some View {
+//        OnboardingView {}
+//    }
+//}

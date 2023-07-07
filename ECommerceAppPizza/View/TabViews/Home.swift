@@ -8,8 +8,6 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-let customFont = "Raleway-Regular"
-
 struct Home: View {
     
     var animation: Namespace.ID
@@ -120,12 +118,6 @@ struct Home: View {
         .onChange(of: homeData.productType) { newValue in
             homeData.filterProductByType()
         }
-        
-//        .fullScreenCover(isPresented: $homeData.showMoreProductsOnType) {
-//            MoreProductsView(animation: animation)
-//                .environmentObject(homeData)
-//
-//        }
         
         // More Products View
         .overlay(
@@ -287,12 +279,6 @@ struct Home: View {
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
         MainPage()
-    }
-}
-
-extension View {
-    func getRect() -> CGRect {
-        return UIScreen.main.bounds
     }
 }
 

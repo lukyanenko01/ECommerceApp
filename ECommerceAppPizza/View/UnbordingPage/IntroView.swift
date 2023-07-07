@@ -97,7 +97,6 @@ struct IntroView<ActionView: View>: View {
                     changeIntro(true)
                 } label: {
                     Image(systemName: "chevron.left")
-//                        .font(.title2.bold())
                         .font(.custom(customFont, size: 20).bold())
                         .foregroundColor(.black)
                         .contentShape(Rectangle())
@@ -150,7 +149,7 @@ struct IntroView<ActionView: View>: View {
 
 
 var pageIntros: [PageIntro] = [
-    .init(introAssetImage: "unboarding1", title: "Найсмачніша піца з ароматом щастя та любові!", subTitle: "Піца з справжніх якісних, італійських продуктів"),
-    .init(introAssetImage: "unboarding2", title: "Великий асортимент", subTitle: "Більше 20 видів піц, які хочеться з'їсти від скоринки до скоринки, нагетси та соуси власної роботи!"),
-    .init(introAssetImage: "unboarding3", title: "Швидка доставка", subTitle: "Замовляйте онлайн та отримуйте найсмачнішу піцу протягом 15 хвилин", displaysAction: true)
+    .init(introAssetImage: ImageIntroGallery.unboarding1, title: TextIntroGallery.title1, subTitle: TextIntroGallery.description1),
+    .init(introAssetImage: ImageIntroGallery.unboarding2, title: TextIntroGallery.title2, subTitle: TextIntroGallery.description2),
+    .init(introAssetImage: ImageIntroGallery.unboarding3, title: TextIntroGallery.title3, subTitle: TextIntroGallery.description3, displaysAction: true)
 ]
