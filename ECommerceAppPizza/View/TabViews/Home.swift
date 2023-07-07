@@ -6,14 +6,18 @@
 //
 
 import SwiftUI
-
-let customFont = "Raleway-Regular"
+import SDWebImageSwiftUI
 
 struct Home: View {
     
-    @Namespace var animation
+    var animation: Namespace.ID
+    
+    @EnvironmentObject var sharedData:  SharedDataModel
     
     @StateObject var homeData: HomeViewModel = HomeViewModel()
+    
+    @State private var isMoreProductsViewPresented = false
+    
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -25,7 +29,7 @@ struct Home: View {
                 ZStack {
                     if homeData.searchActivated {
                         SearchBar()
-
+                        
                     } else {
                         SearchBar()
                             .matchedGeometryEffect(id: "SEARCHBAR", in: animation)
@@ -83,6 +87,7 @@ struct Home: View {
                 
                 Button {
                     homeData.showMoreProductsOnType.toggle()
+                    homeData.filterProductByType()
                 } label: {
                     
                     // Since we need image ar right...
@@ -97,21 +102,33 @@ struct Home: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .padding(.trailing)
                 .padding(.top,10)
-
+                
                 
             }
             .padding(.vertical)
         }
+        .disabled(homeData.isLoading) // блокируем интерфейс во время загрузки
+        .blur(radius: homeData.isLoading ? 3 : 0)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("HomeBG"))
+        
+        
+        
         // Updating data whenever tab changes...
         .onChange(of: homeData.productType) { newValue in
             homeData.filterProductByType()
         }
         
-        .sheet(isPresented: $homeData.showMoreProductsOnType) {
-            MoreProductsView()
-        }
+        // More Products View
+        .overlay(
+            ZStack {
+                if homeData.showMoreProductsOnType {
+                    MoreProductsView(animation: animation)
+                        .environmentObject(homeData)
+                }
+            }
+        )
+
         // Displaying Search View...
         .overlay(
             
@@ -123,10 +140,19 @@ struct Home: View {
                 }
             }
             
-            )
-            
+        )
+        
+        // Индикатор загрузки
+        if homeData.isLoading {
+            ProgressView()
+                .scaleEffect(2)
+                .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+        }
+        
         
     }
+    
+    
     
     // Since we're adding matched geometry effect...
     // avoiding code replication...
@@ -151,26 +177,43 @@ struct Home: View {
     }
     
     @ViewBuilder
-    func ProductCardView(product: Product) -> some View {
+    func ProductCardView(product: Products) -> some View {
         VStack(spacing: 10) {
-            Image(product.productImage)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: getRect().width / 2.5, height: getRect().width / 2.5)
+            
+            ZStack {
+                if let url = URL(string: product.productImage) {
+                    if sharedData.showDetailProduct {
+                        WebImage(url: url)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                        // This adds an activity indicator
+                        
+                    } else {
+                        WebImage(url: url)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .matchedGeometryEffect(id: "\(product.id)IMAGE", in: animation)
+                        //.indicator(.activity) // This adds an activity indicator
+                    }
+                }
+            }
+            
+            .frame(width: getRect().width / 2.5, height: getRect().width / 2.5)
             // Moving image
-                .offset(y: -80)
-                .padding(.bottom, -80)
+            .offset(y: -80)
+            .padding(.bottom, -80)
             
             Text(product.title)
                 .font(.custom(customFont, size: 18))
                 .fontWeight(.semibold)
                 .padding(.top)
             
-            Text(product.subtitle)
+            Text(product.description)
                 .font(.custom(customFont, size: 14))
                 .foregroundColor(.gray)
+                .frame(width: 180, height: 80)
             
-            Text(product.price)
+            Text("\(product.priceS) грн")
                 .font(.custom(customFont, size: 16))
                 .fontWeight(.bold)
                 .foregroundColor(.orange)
@@ -179,12 +222,16 @@ struct Home: View {
         .padding(.horizontal,20)
         .padding(.bottom,22)
         .background(
-        
             Color.white
                 .cornerRadius(25)
-            
-            
         )
+        .onTapGesture {
+            withAnimation(.easeInOut) {
+                sharedData.detailProduct = product
+                sharedData.showDetailProduct = true
+                
+            }
+        }
         
     }
     
@@ -198,7 +245,7 @@ struct Home: View {
             }
         } label: {
             
-            Text(type.rawValue)
+            Text(type.name)
                 .font(.custom(customFont, size: 15))
                 .fontWeight(.semibold)
             // Changing Color based on Current product Type...
@@ -223,7 +270,7 @@ struct Home: View {
                     ,alignment: .bottom
                 )
         }
-
+        
         
     }
     
@@ -231,12 +278,42 @@ struct Home: View {
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        Home()
+        MainPage()
     }
 }
 
-extension View {
-    func getRect() -> CGRect {
-        return UIScreen.main.bounds
+
+class ImageLoader: ObservableObject {
+    @Published var imageData = Data()
+    
+    func load(url: URL) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                DispatchQueue.main.async {
+                    self.imageData = data
+                }
+            }
+        }.resume()
+    }
+}
+
+struct AsyncImage: View {
+    @ObservedObject private var loader = ImageLoader()
+    
+    var url: URL
+    
+    init(url: URL) {
+        self.url = url
+        loader.load(url: url)
+    }
+    
+    var body: some View {
+        if let uiImage = UIImage(data: loader.imageData) {
+            Image(uiImage: uiImage)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        } else {
+            ProgressView() // Or another placeholder
+        }
     }
 }
